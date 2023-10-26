@@ -8,6 +8,7 @@ export default function GlobalSearch() {
   )
 }
 const searchWrap: CSSProperties = {
-  width: "20vw",
+  width: "30vw",
+  marginRight: "5vw",
   backgroundColor: "blue"
 }

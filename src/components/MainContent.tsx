@@ -1,13 +1,13 @@
 import { CSSProperties } from "react"
-import GlobalLeftSider from "./GlobalLeftSider"
-import MainView from "./MainView"
+import LeftSider from "./LeftSider"
+import MainView from "./Right/MainView"
 
-export default function GlobalContent() {
+export default function MainContent() {
   return (
     <>
       <div style={contentWrap}>
-        <GlobalLeftSider></GlobalLeftSider>
-        <MainView></MainView>
+        <LeftSider />
+        <MainView />
       </div>
     </>
   )

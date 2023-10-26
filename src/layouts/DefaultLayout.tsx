@@ -1,13 +1,13 @@
-import GlobalContent from "../components/GlobalContent"
-import GlobalHeader from "../components/Header/GlobalHeader"
+import LeftSider from "../components/LeftSider"
+import RightSider from "../components/Right/RightSider"
 import "./DefaultLayout.scss"
 
 export default function DefaultLayout() {
   return (
     <>
       <div className='default-layout'>
-        <GlobalHeader></GlobalHeader>
-        <GlobalContent></GlobalContent>
+        <LeftSider />
+        <RightSider />
       </div>
     </>
   )

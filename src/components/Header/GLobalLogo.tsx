@@ -12,12 +12,13 @@ export default function GlobalLogo() {
 
 const logoWrap: CSSProperties = {
   width: "10vw",
-  backgroundColor: "#161823"
+  backgroundColor: "#161823",
+  cursor: "pointer"
 }
 
 const logoContainer: CSSProperties = {
   display: "flex",
-  height: "100%",
+  height: "10vh",
   alignItems: "center",
   color: "#8e8b92",
   justifyContent: "center"
