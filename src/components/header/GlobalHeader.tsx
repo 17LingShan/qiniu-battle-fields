@@ -1,5 +1,6 @@
 import TooBar from "./ToolBar"
-import "./GlobalHeader.scss"
+import "./style/GlobalHeader.scss"
+
 export default function GlobalHeader() {
   return (
     <>

@@ -4,4 +4,31 @@
   height: 100vh;
   width: 100vw;
   flex-direction: row;
+
+  .left-sider-wrap {
+    width: $menuWidth;
+    height: 0;
+
+    .left-sider-container {
+      position: fixed;
+      height: auto;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+      background-color: $shadowBackgroundColor;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  .right-sider-wrap {
+    .outlet-container {
+      position: relative;
+      width: calc(100vw - $menuWidth);
+      height: 100%;
+      padding-top: $headerHeight;
+    }
+  }
 }

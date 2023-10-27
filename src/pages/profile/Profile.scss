@@ -1,13 +1,14 @@
+$infoMarginTop: 0.3rem;
+
 .profile-wrap {
-  width: 100%;
   min-height: 100%;
   background-color: $shadowBackgroundColor;
   overflow: hidden;
 
   .info-wrap {
-    height: calc($headerHeight * 1.5);
-    margin-top: $outletMarginTop;
-    padding: 0 $headerHeight;
+    height: calc($headerHeight * 1.8);
+    max-width: 75rem;
+    margin: calc($outletMarginTop * 0.5) auto 0;
 
     .info-container {
       height: 100%;
@@ -15,9 +16,9 @@
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+
       .avatar-wrap {
-        height: 100%;
-        margin-right: calc($headerHeight * 1.2);
+        margin-right: calc($headerHeight * 0.8);
 
         .avatar-container {
           height: 100%;
@@ -27,52 +28,64 @@
       }
 
       .detail-info-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 1rem 0;
         color: $activeFontColor;
 
-        .detail-info-container {
-          padding: 1rem 0;
+        .nickname {
+          font-size: 1.25rem;
+        }
 
-          .nickname {
-            height: 1rem;
-            line-height: 1.5rem;
-            font-size: 1.25rem;
-          }
+        .social-info {
+          display: flex;
+          flex-direction: row;
+          margin-top: $infoMarginTop;
 
-          .social-info {
-            display: flex;
-            flex-direction: row;
-            height: 2.5rem;
+          .social-item {
+            &:not(:last-child) {
+              margin-right: 1.5rem;
+            }
 
-            .social-item {
-              height: 2.5rem;
-              line-height: 2.5rem;
-
-              align-items: center;
-
-              &:not(:last-child) {
-                margin-right: 1.5rem;
-              }
-
-              > div:first-child {
-                font-size: 0.75rem;
-              }
-
-              .social-item-name {
-                color: #848389;
-                margin-right: 0.5rem;
-              }
+            .social-item-name {
+              color: #848389;
+              margin-right: 0.5rem;
             }
           }
-          .self-id {
-            height: 1.5rem;
-            line-height: 1.5rem;
-            font-size: 0.8rem;
-            color: #848389;
+        }
+        .self-id {
+          font-size: 0.8rem;
+          color: #848389;
+          margin-top: $infoMarginTop;
 
-            :first-child {
-              margin-right: 0.75rem;
-            }
+          :first-child {
+            margin-right: 0.75rem;
           }
+        }
+      }
+    }
+  }
+
+  .preview-wrap {
+    height: auto;
+    padding-top: 2.5rem;
+
+    .preview-container {
+      margin: 0 auto;
+      max-width: $maxWidth;
+
+      .preview-ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        > li {
+          position: relative;
+          width: 14rem;
+          height: 20rem;
+          margin-bottom: 2rem;
+          background-color: green;
         }
       }
     }

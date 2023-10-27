@@ -1,11 +1,10 @@
-import { CSSProperties } from "react"
-import GlobalAvatar from "./Avatar"
-import "./ToolBar.scss"
+import GlobalAvatar from "./GlobalAvatar"
+import "./style/ToolBar.scss"
+
 export default function GlobalProfile() {
   return (
     <>
       <div className='tool-bar-wrap'>
-        <GlobalAvatar />
         <GlobalAvatar />
       </div>
     </>
