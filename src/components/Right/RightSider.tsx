@@ -1,19 +1,16 @@
-import { CSSProperties } from "react"
-import MainView from "./MainView"
-import GlobalHeader from "../Header/GlobalHeader"
+import { Outlet } from "react-router-dom"
+import GlobalHeader from "./Header/GlobalHeader"
+import "./RightSider.scss"
 
 export default function RightSider() {
   return (
     <>
-      <div style={rightSiderWrap}>
+      <div className='right-sider-wrap'>
         <GlobalHeader />
-        <MainView />
+        <div className='outlet-container'>
+          <Outlet />
+        </div>
       </div>
     </>
   )
-}
-
-const rightSiderWrap: CSSProperties = {
-  width: "90vw",
-  alignItems: "center"
 }

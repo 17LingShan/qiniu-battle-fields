@@ -1,6 +1,6 @@
 import { CSSProperties } from "react"
 
-export default function GlobalSearch() {
+export default function SearchBar() {
   return (
     <>
       <div style={searchWrap}></div>
@@ -8,7 +8,6 @@ export default function GlobalSearch() {
   )
 }
 const searchWrap: CSSProperties = {
-  width: "30vw",
-  marginRight: "5vw",
+  width: "50rem",
   backgroundColor: "blue"
 }

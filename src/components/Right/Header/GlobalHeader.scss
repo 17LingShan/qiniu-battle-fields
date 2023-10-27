@@ -1,0 +1,19 @@
+.header-fixed-wrap {
+  height: 0;
+
+  .header-wrap {
+    position: fixed;
+    height: $headerHeight;
+    width: calc(100% - $menuWidth);
+    background: $shadowBackgroundColor;
+    z-index: 9;
+
+    .header-container {
+      height: 100%;
+      display: flex;
+      min-width: $minWidth;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+}

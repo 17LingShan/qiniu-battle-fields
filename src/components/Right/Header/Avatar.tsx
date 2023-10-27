@@ -1,10 +1,17 @@
 import { CSSProperties } from "react"
-import BaiZi from "../../assets/baizi.jpg"
+import { useNavigate } from "react-router-dom"
+import BaiZi from "../../../assets/baizi.jpg"
 
 export default function GlobalAvatar() {
+  const navigate = useNavigate()
+
+  const handleClickAvatar = () => {
+    navigate("/profile")
+  }
+
   return (
     <>
-      <div style={avatarWrap}>
+      <div style={avatarWrap} onClick={handleClickAvatar}>
         <div
           style={avatarEntity}
           onMouseEnter={() => {
@@ -24,18 +31,16 @@ export default function GlobalAvatar() {
 const avatarWrap: CSSProperties = {
   display: "flex",
   alignItems: "center",
-  width: "5vh",
-  height: "100%",
   cursor: "pointer"
 }
 
 const avatarEntity: CSSProperties = {
-  width: "100%",
-  height: "5vh"
+  height: "2.25rem",
+  width: "2.25rem"
 }
 
 const imgStyle: CSSProperties = {
   width: "100%",
   height: "100%",
-  borderRadius: 9999
+  borderRadius: "50%"
 }

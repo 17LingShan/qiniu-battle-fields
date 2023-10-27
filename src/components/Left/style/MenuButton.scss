@@ -1,0 +1,38 @@
+.menu-item-li {
+  height: 2.5rem;
+  margin: 0.5rem 1rem 0;
+  list-style: none;
+  color: $shadowFontColor;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  .menu-item-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    padding: 0 1rem;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 1rem;
+
+    &:hover {
+      color: #ffffff;
+      background-color: #272933;
+    }
+
+    > div {
+      vertical-align: middle;
+    }
+
+    > div:first-child {
+      display: flex;
+      margin-right: $marginFont;
+      align-items: center;
+    }
+  }
+}
+
+.active-menu-item {
+  color: #ffffff;
+  background-color: #272933;
+}

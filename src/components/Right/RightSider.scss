@@ -1,0 +1,8 @@
+.right-sider-wrap {
+  .outlet-container {
+    position: relative;
+    width: calc(100vw - $menuWidth);
+    height: 100%;
+    padding-top: $headerHeight;
+  }
+}

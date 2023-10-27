@@ -1,6 +1,7 @@
-import { CSSProperties, useEffect } from "react"
-import ContentButton from "./MenuButton"
+import { useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
+import MenuButton from "./MenuButton"
+import "./style/LeftMenu.scss"
 
 type MenuProps = {
   items: Menu.MenuItem[]
@@ -22,28 +23,21 @@ export default function LeftMenu({ items }: MenuProps) {
 
   return (
     <>
-      <div style={menuWrap}>
-        <ul>
+      <div className='menu-wrap'>
+        <div className='menu-container'>
           {items.map((item, index) => (
-            <ContentButton
+            <MenuButton
               className={location.pathname === item.path ? "active-menu-item" : ""}
               key={index}
               text={item.text}
               Icon={item.Icon}
               size={item.size}
               path={item.path}
-              style={{ marginTop: "2vh" }}
               onClick={handleClick}
             />
           ))}
-        </ul>
+        </div>
       </div>
     </>
   )
-}
-const menuWrap: CSSProperties = {
-  width: "10vw",
-  height: "90vh",
-  paddingTop: "2vh",
-  boxSizing: "border-box"
 }

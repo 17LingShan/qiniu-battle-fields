@@ -1,5 +1,5 @@
-import LeftSider from "../components/LeftSider"
-import RightSider from "../components/Right/RightSider"
+import LeftSider from "../../components/Left/LeftSider"
+import RightSider from "../../components/Right/RightSider"
 import "./DefaultLayout.scss"
 
 export default function DefaultLayout() {

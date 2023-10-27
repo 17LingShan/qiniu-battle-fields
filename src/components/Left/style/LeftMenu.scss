@@ -1,0 +1,8 @@
+.menu-wrap {
+  min-height: $menuWidth;
+
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

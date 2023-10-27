@@ -1,0 +1,19 @@
+.logo-wrap {
+  width: $menuWidth;
+  height: $headerHeight;
+  cursor: pointer;
+
+  .logo-fixed-wrap {
+    position: fixed;
+    color: $shadowFontColor;
+
+    .logo-container {
+      width: $menuWidth;
+      height: $headerHeight;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $shadowBackgroundColor;
+    }
+  }
+}
