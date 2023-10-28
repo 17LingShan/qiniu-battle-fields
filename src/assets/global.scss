@@ -1,9 +1,14 @@
 $headerHeight: 4.25rem;
 $menuWidth: 10rem;
 $marginFont: 1.25rem;
-$maxWidth: 75rem;
+$maxWidth: 90rem;
+$middleWidth: 75rem;
 $minWidth: 40rem;
+$avatarNormalSize: 2.75rem;
+$avatarHoverSize: 3rem;
 $outletMarginTop: 4rem;
+$outletMarginHor: 5rem;
+$headerDialogAbsoluteTop: calc($headerHeight - ($headerHeight - $avatarNormalSize) / 2);
 $activeFontColor: #e8e8e9;
 $shadowFontColor: #848389;
 $shadowBackgroundColor: #161823;

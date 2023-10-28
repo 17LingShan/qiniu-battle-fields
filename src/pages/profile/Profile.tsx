@@ -1,10 +1,10 @@
-import { CSSProperties, useMemo } from "react"
+import { useMemo } from "react"
 import puluona from "../../assets/puluona.webp"
 import "./Profile.scss"
 import VideoPreviewItem from "../../components/Player/VideoPreviewItem"
 
 export default function Profile() {
-  const arr = useMemo(() => Array.from({ length: 50 }, (_, index) => index + 1), [])
+  const arr = useMemo(() => Array.from({ length: 11 }, (_, index) => index + 1), [])
 
   return (
     <>

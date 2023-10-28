@@ -1,18 +1,24 @@
-$avatarSize: 2.75rem;
-
 .avatar-wrap {
   display: flex;
   align-items: center;
-  cursor: pointer;
 
   .avatar-entity {
-    height: $avatarSize;
-    width: $avatarSize;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: $avatarHoverSize;
+    height: $avatarHoverSize;
     .avatar-img {
-      width: 100%;
-      height: 100%;
+      width: $avatarNormalSize;
+      height: $avatarNormalSize;
       border-radius: 50%;
+      cursor: pointer;
+
+      &:hover {
+        width: $avatarHoverSize;
+        height: $avatarHoverSize;
+      }
     }
   }
 }

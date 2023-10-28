@@ -5,12 +5,13 @@
     position: fixed;
     height: $headerHeight;
     width: calc(100% - $menuWidth);
-    background: $shadowBackgroundColor;
-    z-index: 9;
+    background-color: $shadowBackgroundColor;
+    z-index: 1;
 
     .header-container {
-      height: 100%;
+      position: relative;
       display: flex;
+      height: 100%;
       min-width: $minWidth;
       flex-direction: row;
       justify-content: flex-end;
