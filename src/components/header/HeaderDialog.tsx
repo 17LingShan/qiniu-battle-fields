@@ -1,32 +1,32 @@
-import { forwardRef, useRef, useImperativeHandle } from "react"
+import { useRef, useEffect } from "react"
 import "./style/HeaderDialog.scss"
+import HeaderDialogStore from "../../store/HeaderDialog"
+import { observer } from "mobx-react"
 
-export type HeaderDialogMethod = {
-  focus: () => void
-  blur: () => void
-}
-
-type HeaderDialogProps = {}
-
-const HeaderDialog = forwardRef<HeaderDialogMethod, HeaderDialogProps>(function HeaderDialog(props, ref) {
+function HeaderDialog() {
   const dialogRef = useRef<HTMLDivElement>(null)
 
-  useImperativeHandle(ref, () => {
-    return {
-      focus() {
-        dialogRef.current?.classList.add("active-dialog")
-      },
-      blur() {
-        dialogRef.current?.classList.remove("active-dialog")
-      }
+  useEffect(() => {
+    console.log(HeaderDialogStore.isOpen)
+    if (HeaderDialogStore.isOpen || HeaderDialogStore.isFocus) {
+      dialogRef.current?.classList.add("active-dialog")
+    } else {
+      dialogRef.current?.classList.remove("active-dialog")
     }
-  })
+  }, [HeaderDialogStore.isOpen, HeaderDialogStore.isFocus])
 
   return (
     <>
-      <div ref={dialogRef} className='dialog-wrap'></div>
+      <div
+        ref={dialogRef}
+        className='dialog-wrap'
+        onMouseEnter={() => HeaderDialogStore.focusDialog()}
+        onMouseLeave={() => HeaderDialogStore.blurDialog()}
+      >
+        <div className='dialog-container'></div>
+      </div>
     </>
   )
-})
+}
 
-export default HeaderDialog
+export default observer(HeaderDialog)
