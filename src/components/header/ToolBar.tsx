@@ -1,4 +1,4 @@
-import GlobalAvatar from "./GlobalAvatar"
+import GlobalAvatar from "./HeaderAvatar"
 import "./style/ToolBar.scss"
 
 export default function GlobalProfile() {

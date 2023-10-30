@@ -22,6 +22,7 @@ $infoMarginTop: 0.3rem;
 
         .avatar-container {
           height: 100%;
+          width: calc($headerHeight * 1.8);
           cursor: pointer;
           border-radius: 50%;
         }

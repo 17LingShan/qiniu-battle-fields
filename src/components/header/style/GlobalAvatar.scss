@@ -9,6 +9,24 @@
     position: relative;
     width: $avatarHoverSize;
     height: $avatarHoverSize;
+    width: auto;
+    cursor: pointer;
+
+    .header-login-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10%;
+      height: 100%;
+      color: $activeFontColor;
+      width: 5rem;
+      color: $activeFontColor;
+      background-color: $shadowBackgroundColor;
+
+      &:hover {
+        background-color: $activeBackgroundColor;
+      }
+    }
 
     .avatar-img {
       width: $avatarNormalSize;

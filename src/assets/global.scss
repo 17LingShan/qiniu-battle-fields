@@ -9,10 +9,21 @@ $avatarHoverSize: 3rem;
 $outletMarginTop: 4rem;
 $outletMarginHor: 5rem;
 $toolBarMarginRight: 5rem;
-$headerDialogAbsoluteTop: calc($headerHeight - ($headerHeight - $avatarNormalSize) / 2);
+$HeaderDrawerWidth: 30rem;
+$HeaderDrawerHeight: 12rem;
+$HeaderDrawerAbsoluteTop: calc($headerHeight - ($headerHeight - $avatarNormalSize) / 2);
 $activeFontColor: #e8e8e9;
 $shadowFontColor: #848389;
+$smoothBarColor: #fe2c55;
 $shadowBackgroundColor: #161823;
+$activeBackgroundColor: #272933;
+
+.flex-hor-ver-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .clearfix:after {
   content: ".";

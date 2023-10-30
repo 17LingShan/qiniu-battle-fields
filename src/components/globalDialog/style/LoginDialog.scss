@@ -1,0 +1,30 @@
+.login-dialog {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30rem;
+  height: 20rem;
+  background-color: #dbf5e8;
+  &[open]::backdrop {
+    background-color: rgba($color: $shadowBackgroundColor, $alpha: 0.1);
+  }
+
+  .login-dialog-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .login-dialog-container {
+      width: 25rem;
+      height: 15rem;
+      // background-color: red;
+    }
+
+    .dialog-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      cursor: pointer;
+    }
+  }
+}

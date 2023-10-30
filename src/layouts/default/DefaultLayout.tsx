@@ -1,8 +1,10 @@
+import { observer } from "mobx-react"
 import { Outlet } from "react-router-dom"
 import { FaFaceGrinStars, FaHouseChimney, FaUserCheck, FaUserGroup } from "react-icons/fa6"
 import Logo from "../../components/menu/Logo"
 import LeftMenu from "../../components/menu/LeftMenu"
 import GlobalHeader from "../../components/header/GlobalHeader"
+import LoginDialog from "../../components/globalDialog/LoginDialog"
 import "./DefaultLayout.scss"
 
 const buttonList: Menu.MenuItem[] = [
@@ -30,110 +32,10 @@ const buttonList: Menu.MenuItem[] = [
     text: "朋友",
     path: "/friend",
     Icon: FaUserGroup
-  },
-  {
-    text: "推荐",
-    path: "/recommend",
-    Icon: FaFaceGrinStars
-  },
-  {
-    text: "首页",
-    path: "/",
-    Icon: FaHouseChimney
-  },
-  {
-    text: "我的",
-    path: "/profile",
-    Icon: FaHouseChimney
-  },
-  {
-    text: "关注",
-    path: "/follow",
-    Icon: FaUserCheck
-  },
-  {
-    text: "朋友",
-    path: "/friend",
-    Icon: FaUserGroup
-  },
-  {
-    text: "推荐",
-    path: "/recommend",
-    Icon: FaFaceGrinStars
-  },
-  {
-    text: "首页",
-    path: "/",
-    Icon: FaHouseChimney
-  },
-  {
-    text: "我的",
-    path: "/profile",
-    Icon: FaHouseChimney
-  },
-  {
-    text: "关注",
-    path: "/follow",
-    Icon: FaUserCheck
-  },
-  {
-    text: "朋友",
-    path: "/friend",
-    Icon: FaUserGroup
-  },
-  {
-    text: "推荐",
-    path: "/recommend",
-    Icon: FaFaceGrinStars
-  },
-  {
-    text: "首页",
-    path: "/",
-    Icon: FaHouseChimney
-  },
-  {
-    text: "我的",
-    path: "/profile",
-    Icon: FaHouseChimney
-  },
-  {
-    text: "关注",
-    path: "/follow",
-    Icon: FaUserCheck
-  },
-  {
-    text: "朋友",
-    path: "/friend",
-    Icon: FaUserGroup
-  },
-  {
-    text: "推荐",
-    path: "/recommend",
-    Icon: FaFaceGrinStars
-  },
-  {
-    text: "首页",
-    path: "/",
-    Icon: FaHouseChimney
-  },
-  {
-    text: "我的",
-    path: "/profile",
-    Icon: FaHouseChimney
-  },
-  {
-    text: "关注",
-    path: "/follow",
-    Icon: FaUserCheck
-  },
-  {
-    text: "朋友",
-    path: "/friend",
-    Icon: FaUserGroup
   }
 ]
 
-export default function DefaultLayout() {
+function DefaultLayout() {
   return (
     <>
       <div className='default-layout'>
@@ -145,9 +47,10 @@ export default function DefaultLayout() {
             </div>
           </div>
         </div>
-
         <div className='right-sider-wrap'>
           <GlobalHeader />
+          <LoginDialog />
+
           <div className='outlet-container'>
             <Outlet />
           </div>
@@ -156,3 +59,5 @@ export default function DefaultLayout() {
     </>
   )
 }
+
+export default observer(DefaultLayout)

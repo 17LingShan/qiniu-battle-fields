@@ -16,8 +16,8 @@
     border-radius: 1rem;
 
     &:hover {
-      color: #ffffff;
-      background-color: #272933;
+      color: $activeFontColor;
+      background-color: $activeBackgroundColor;
     }
 
     > div {
@@ -33,6 +33,6 @@
 }
 
 .active-menu-item {
-  color: #ffffff;
-  background-color: #272933;
+  color: $activeFontColor;
+  background-color: $activeBackgroundColor;
 }

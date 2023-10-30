@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx"
 
-export class HeaderDialog {
+export class HeaderDrawer {
   isOpen: boolean = false
   isFocus: boolean = false
 
@@ -25,6 +25,6 @@ export class HeaderDialog {
   }
 }
 
-const HeaderDialogStore = new HeaderDialog()
+const HeaderDrawerStore = new HeaderDrawer()
 
-export default HeaderDialogStore
+export default HeaderDrawerStore

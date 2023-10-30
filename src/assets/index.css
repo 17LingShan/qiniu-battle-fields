@@ -73,3 +73,8 @@ table {
 body::-webkit-scrollbar {
   display: none;
 }
+
+dialog {
+  border: none;
+  outline: none;
+}

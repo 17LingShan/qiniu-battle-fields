@@ -1,5 +1,5 @@
-import HeaderDialog from "./HeaderDialog"
 import TooBar from "./ToolBar"
+import HeaderDrawer from "./HeaderDrawer"
 import "./style/GlobalHeader.scss"
 
 export default function GlobalHeader() {
@@ -10,7 +10,7 @@ export default function GlobalHeader() {
           <div className='header-container'>
             <TooBar />
           </div>
-          <HeaderDialog />
+          <HeaderDrawer />
         </header>
       </div>
     </>

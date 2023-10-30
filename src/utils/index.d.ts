@@ -1,10 +1,7 @@
 declare namespace Storage {
   interface StorageConfig {
-    profile?: Profile
+    nickname: string
+    age: number
     [key: string | symbol]: PropertyKey
-  }
-
-  interface Profile {
-    name?: string
   }
 }
