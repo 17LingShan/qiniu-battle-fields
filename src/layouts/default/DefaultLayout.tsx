@@ -4,7 +4,7 @@ import { FaFaceGrinStars, FaHouseChimney, FaUserCheck, FaUserGroup } from "react
 import Logo from "../../components/menu/Logo"
 import LeftMenu from "../../components/menu/LeftMenu"
 import GlobalHeader from "../../components/header/GlobalHeader"
-import LoginDialog from "../../components/globalDialog/LoginDialog"
+import AuthDialog from "../../components/globalDialog/AuthDialog"
 import "./DefaultLayout.scss"
 
 const buttonList: Menu.MenuItem[] = [
@@ -49,7 +49,7 @@ function DefaultLayout() {
         </div>
         <div className='right-sider-wrap'>
           <GlobalHeader />
-          <LoginDialog />
+          <AuthDialog />
 
           <div className='outlet-container'>
             <Outlet />

@@ -1,6 +1,5 @@
 .smooth-nav-wrap {
   height: 3rem;
-  //   background-color: blue;
 
   .smooth-nav-container {
     height: 100%;
@@ -23,11 +22,11 @@
       }
 
       > li {
-        // transition: 0.3s linear;
         text-align: center;
         line-height: 3rem;
         width: 100%;
         height: 100%;
+        font-size: 1.25rem;
         color: $shadowFontColor;
       }
 

@@ -16,4 +16,6 @@ namespace APIParams {
   }
 
   type RegisterParams = Pick<User, "email" | "nickname" | "password">
+
+  type LoginParams = Pick<User, "email" | "password">
 }

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx"
 
-export class LoginDialog {
+export class AuthDialog {
   isOpen: boolean = false
 
   constructor() {
@@ -16,6 +16,6 @@ export class LoginDialog {
   }
 }
 
-const LoginDialogStore = new LoginDialog()
+const AuthDialogStore = new AuthDialog()
 
-export default LoginDialogStore
+export default AuthDialogStore

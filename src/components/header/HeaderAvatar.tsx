@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import UserStore from "../../store/User"
-import LoginDialogStore from "../../store/LoginDialog"
+import AuthDialogStore from "../../store/AuthDialog"
 import HeaderDrawerStore from "../../store/HeaderDrawer"
 import BaiZi from "../../assets/baizi.jpg"
 import puluona from "../../assets/puluona.webp"
@@ -26,7 +26,7 @@ function GlobalAvatar() {
               onMouseEnter={() => HeaderDrawerStore.showDialog()}
             />
           ) : (
-            <div className='header-login-button' onClick={() => LoginDialogStore.showDialog()}>
+            <div className='header-auth-button' onClick={() => AuthDialogStore.showDialog()}>
               登录
             </div>
           )}

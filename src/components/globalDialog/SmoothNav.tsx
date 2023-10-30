@@ -1,23 +1,20 @@
+import { useEffect, useRef } from "react"
 import { observer } from "mobx-react"
 import "./style/SmoothNav.scss"
-import { useEffect, useRef, useState } from "react"
 
-function SmoothNav() {
-  const [navIndex, setNavIndex] = useState(0)
+function SmoothNav({ navList, currentIndex, setNavIndex }: GlobalDialog.SmoothNavProps) {
   const smoothBarRef = useRef<HTMLDivElement>(null)
 
-  const liItems = [{ text: "登录" }, { text: "注册" }]
-
   useEffect(() => {
-    smoothBarRef.current!.style.left = `${50 * navIndex}%`
-  }, [navIndex])
+    smoothBarRef.current!.style.left = `${50 * currentIndex}%`
+  }, [currentIndex])
 
   return (
     <>
       <div className='smooth-nav-wrap'>
         <div className='smooth-nav-container'>
           <ul className='smooth-nav-ul'>
-            {liItems.map((item, index) => (
+            {navList.map((item, index) => (
               <li key={index} onClick={() => setNavIndex(index)}>
                 {item.text}
               </li>
