@@ -12,14 +12,8 @@ export default function LeftMenu({ items }: MenuProps) {
   const location = useLocation()
 
   const handleClick = ({ path, text }: Pick<Menu.MenuItem, "path" | "text">) => {
-    console.log(path)
-    console.log(text)
     navigate(path!)
   }
-
-  useEffect(() => {
-    console.log(location)
-  }, [location])
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { RouteObject } from "react-router-dom"
 import DefaultLayout from "../layouts/default/DefaultLayout"
 import Home from "../pages/home/Home"
-import Recommend from "../pages/Recommend"
+import Recommend from "../pages/recommend/Recommend"
 import Profile from "../pages/profile/Profile"
 import Friend from "../pages/friend/Friend"
 import Follow from "../pages/follow/Follow"

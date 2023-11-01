@@ -1,0 +1,14 @@
+.figure-video {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  background-color: yellow;
+
+  .video-instance {
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -2,7 +2,8 @@ import { request } from "../utils/request"
 
 const api = {
   register: "/v1/auth/register",
-  login: "/v1/auth/login"
+  login: "/v1/auth/login",
+  captcha: "/v1/auth/activate"
 }
 
 export function register(params: APIParams.RegisterParams) {
@@ -16,6 +17,14 @@ export function register(params: APIParams.RegisterParams) {
 export function login(params: APIParams.LoginParams) {
   return request({
     url: api.login,
+    method: "post",
+    data: params
+  })
+}
+
+export function fetchCaptcha(params: APIParams.FetchCaptchaParams) {
+  return request({
+    url: api.captcha,
     method: "post",
     data: params
   })

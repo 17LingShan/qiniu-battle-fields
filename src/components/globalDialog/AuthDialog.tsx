@@ -24,7 +24,6 @@ function AuthDialog() {
   }
 
   useEffect(() => {
-    console.log(AuthDialogStore.isOpen)
     if (AuthDialogStore.isOpen) {
       dialogRef.current?.showModal()
     } else {
