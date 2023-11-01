@@ -1,9 +1,14 @@
 import { useEffect, useRef } from "react"
 import { observer } from "mobx-react"
-import RecommendVideoStore from "../../store/RecommendVideo"
 import "./style/recommendVideo.scss"
 
-function RecommendVideo() {
+interface Props {
+  isCurrent: boolean
+  src: string
+  index?: number
+}
+
+function RecommendVideo({ index, isCurrent, src }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const handleControlKeydown = (event: KeyboardEvent) => {
     switch (event.key) {
@@ -17,24 +22,46 @@ function RecommendVideo() {
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", handleControlKeydown)
-
-    return () => {
-      document.addEventListener("keydown", handleControlKeydown)
+    if (isCurrent) {
+      videoRef.current?.play()
+      videoRef.current!.muted = false
+    } else {
+      videoRef.current?.pause()
     }
-  }, [])
+  }, [isCurrent])
+
+  useEffect(() => {
+    if (!isCurrent) return
+
+    document.addEventListener("keydown", handleControlKeydown)
+    return () => {
+      document.removeEventListener("keydown", handleControlKeydown)
+    }
+  }, [isCurrent])
+
+  const handleClick = () => {
+    videoRef.current!.muted = false
+  }
+
+  const handleEnded = () => {
+    videoRef.current!.play()
+  }
 
   return (
     <>
       <figure className='figure-video'>
-        <video className='video-instance' id='video' ref={videoRef}>
-          <source
-            className='video-source'
-            style={{ height: "100%" }}
-            type='video/mp4'
-            src={RecommendVideoStore.currentVideoSrc}
-          />
+        <video
+          className='video-instance'
+          id='video'
+          ref={videoRef}
+          muted
+          autoPlay
+          onClick={handleClick}
+          onEnded={handleEnded}
+        >
+          <source type='video/mp4' src={src} />
         </video>
+        <span style={{ position: "absolute", left: 0, top: 0, background: "white", color: "black" }}>{index}</span>
       </figure>
     </>
   )

@@ -2,7 +2,6 @@ import { observer } from "mobx-react"
 import RecommendVideo from "../../components/recommendVideo/RecommendVideo"
 import "./Recommend.scss"
 import { useEffect, useRef } from "react"
-import ShadowVideo from "../../components/recommendVideo/ShadowVideo"
 import RecommendVideoStore from "../../store/RecommendVideo"
 
 function Recommend() {
@@ -36,6 +35,10 @@ function Recommend() {
   }
 
   useEffect(() => {
+    history.scrollRestoration = "manual"
+  }, [])
+
+  useEffect(() => {
     document.addEventListener("keydown", handleKeydown)
     return () => {
       document.removeEventListener("keydown", handleKeydown)
@@ -48,31 +51,21 @@ function Recommend() {
         <div className='recommend-container'>
           <div className='video-scroll-wrap'>
             {RecommendVideoStore.srcList.map((item, index) => {
-              if (index === RecommendVideoStore.currentIndex) {
-                return (
-                  <div className='video-scroll-item' key={index}>
-                    <RecommendVideo />
-                  </div>
-                )
-              } else if (RecommendVideoStore.getPrevVideoIndex === index) {
-                return (
-                  <div className='video-scroll-item' key={index} ref={prevRef}>
-                    <ShadowVideo src={RecommendVideoStore.srcList[index]} />
-                  </div>
-                )
-              } else if (RecommendVideoStore.getNextVideoIndex === index) {
-                return (
-                  <div className='video-scroll-item' key={index} ref={nextRef}>
-                    <ShadowVideo src={RecommendVideoStore.srcList[index]} />
-                  </div>
-                )
-              } else {
-                return (
-                  <div className='video-scroll-item' key={index} ref={nextRef}>
-                    <ShadowVideo src={RecommendVideoStore.srcList[index]} />
-                  </div>
-                )
-              }
+              const ref =
+                RecommendVideoStore.getPrevVideoIndex === index
+                  ? prevRef
+                  : RecommendVideoStore.getNextVideoIndex === index
+                  ? nextRef
+                  : undefined
+              return (
+                <div className='video-scroll-item' key={index} ref={ref}>
+                  <RecommendVideo
+                    index={index}
+                    src={RecommendVideoStore.srcList[index]}
+                    isCurrent={RecommendVideoStore.currentIndex === index}
+                  />
+                </div>
+              )
             })}
           </div>
         </div>
