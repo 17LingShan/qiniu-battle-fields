@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import MenuButton from "./MenuButton"
 import "./style/LeftMenu.scss"

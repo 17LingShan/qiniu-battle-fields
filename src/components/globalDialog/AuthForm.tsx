@@ -31,6 +31,7 @@ function AuthForm({ currentIndex }: AuthFormProps) {
   const handleLogin = async () => {
     try {
       const res = await login({ email: email, password: password })
+      console.log(res)
     } catch (err) {
       messageApi.open({
         type: "error",
@@ -42,6 +43,7 @@ function AuthForm({ currentIndex }: AuthFormProps) {
   const handleRegister = async () => {
     try {
       const res = await register({ email: email, password: password, nickname: nickname })
+      console.log(res)
     } catch (err) {
       messageApi.open({
         type: "error",
