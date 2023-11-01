@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { observer } from "mobx-react"
-import "./style/recommendVideo.scss"
+import "./style/RecommendVideo.scss"
 
 interface Props {
   isCurrent: boolean
