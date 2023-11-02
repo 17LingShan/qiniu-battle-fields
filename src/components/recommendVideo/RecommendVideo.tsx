@@ -45,7 +45,6 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
 
   const handleLoadedMetadata = () => {
     console.log("loaded metadata")
-    console.log(videoRef.current?.played)
   }
 
   const handleClickVolume = () => {
@@ -53,10 +52,12 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
   }
 
   const handleTimeUpdate = throttle(function () {
-    RecommendVideoStore.setCurrentTime(videoRef.current!.currentTime)
-
-    videoProcessRef.current!.style.width = `${(videoRef.current!.currentTime / videoRef.current!.duration) * 100}%`
-  }, 750)
+    console.log("currentTime", videoRef.current!.currentTime)
+    if (isCurrent) {
+      RecommendVideoStore.setCurrentTime(videoRef.current!.currentTime)
+      videoProcessRef.current!.style.width = `${(videoRef.current!.currentTime / videoRef.current!.duration) * 100}%`
+    }
+  }, 1000)
 
   const handleKeydownProcess = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     console.log("key down")
@@ -76,7 +77,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
   }
 
   const handleKeyMovePRocess = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (keydown) {
+    if (keydown && isCurrent) {
       const totalWidth = videoProcessWrapRef.current!.getBoundingClientRect().width
       const barLeft = videoProcessRef.current!.getBoundingClientRect().left
       const mouseX = event.pageX
@@ -91,6 +92,8 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
     if (isCurrent) {
       videoRef.current!.muted = RecommendVideoStore.muted
       handlePlayVideo()
+    } else {
+      videoRef.current?.pause()
     }
   }, [isCurrent])
 
@@ -103,10 +106,12 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
   useEffect(() => {
     if (!isCurrent) return
     document.addEventListener("keydown", handleControlKeydown)
+    videoRef.current?.addEventListener("timeupdate", handleTimeUpdate)
     return () => {
       console.log("remove")
       videoRef.current?.pause()
       document.removeEventListener("keydown", handleControlKeydown)
+      videoRef.current?.removeEventListener("timeupdate", handleTimeUpdate)
     }
   }, [isCurrent])
 
@@ -119,7 +124,6 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
           ref={videoRef}
           onClick={handleClickVideo}
           onEnded={handleEndedVideo}
-          onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
           muted
           autoPlay

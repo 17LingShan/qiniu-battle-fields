@@ -1,13 +1,14 @@
-export function formateSeconds(seconds: number | undefined): string {
+export function formateSeconds(seconds: number): string {
   if (seconds === undefined || seconds === null) return "00:00"
-
-  return `${Math.round(seconds / 60)
+  return `${Math.floor(seconds / 60)
     .toString()
-    .padStart(2, "0")}:${Math.floor(seconds % 60)
-    .toString()
-    .padStart(2, "0")}`
+    .padStart(2, "0")}:
+    ${Math.floor(seconds % 60)
+      .toString()
+      .padStart(2, "0")}`
 }
 
+// 节流
 export function throttle(callback: Function, delay: number) {
   let t = true
 
@@ -22,6 +23,7 @@ export function throttle(callback: Function, delay: number) {
   }
 }
 
+// 防抖
 export function debounce(callback: Function, delay: number) {
   let t: number = 0
   return function () {
