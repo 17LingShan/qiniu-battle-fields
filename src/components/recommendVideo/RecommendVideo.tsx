@@ -30,12 +30,12 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
     RecommendVideoStore.setPaused(videoRef.current!.paused)
   }
 
-  const handleClick = () => {
+  const handleClickVideo = () => {
     console.log("click video")
     handleSpaceKeydown()
   }
 
-  const handleEnded = () => {
+  const handleEndedVideo = () => {
     videoRef.current!.play()
   }
 
@@ -58,9 +58,16 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
     videoProcessRef.current!.style.width = `${(videoRef.current!.currentTime / videoRef.current!.duration) * 100}%`
   }, 750)
 
-  const handleKeydownProcess = () => {
+  const handleKeydownProcess = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     console.log("key down")
     setKeydown(true)
+    const totalWidth = videoProcessWrapRef.current!.getBoundingClientRect().width
+    const barLeft = videoProcessRef.current!.getBoundingClientRect().left
+    const mouseX = event.pageX
+    const offsetX = mouseX - barLeft
+    const percentage = offsetX / totalWidth
+    videoProcessRef.current!.style.width = `${percentage * 100}%`
+    videoRef.current!.currentTime = percentage * videoRef.current!.duration
   }
 
   const handleKeyUpProcess = () => {
@@ -110,8 +117,8 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
           className='video-instance'
           id='video'
           ref={videoRef}
-          onClick={handleClick}
-          onEnded={handleEnded}
+          onClick={handleClickVideo}
+          onEnded={handleEndedVideo}
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
           muted
