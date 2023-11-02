@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { observer } from "mobx-react"
+import { FaPause, FaPlay } from "react-icons/fa6"
+import { BsVolumeDown, BsVolumeMute } from "react-icons/bs"
+import { debounce, formateSeconds, throttle } from "../../utils/common"
 import RecommendVideoStore from "../../store/RecommendVideo"
 import "./style/RecommendVideo.scss"
-import { message } from "antd"
-import { FaPause, FaPlay } from "react-icons/fa6"
-import { formateSeconds } from "../../utils/common"
 
 interface Props {
   src: string
@@ -13,8 +13,11 @@ interface Props {
 }
 
 function RecommendVideo({ index, isCurrent, src }: Props) {
-  const [messageApi, contextHolder] = message.useMessage({ maxCount: 1 })
   const videoRef = useRef<HTMLVideoElement>(null)
+  const videoProcessRef = useRef<HTMLDivElement>(null)
+  const videoProcessWrapRef = useRef<HTMLDivElement>(null)
+  const [keydown, setKeydown] = useState(false)
+
   const handleControlKeydown = (event: KeyboardEvent) => {
     switch (event.key) {
       case " ":
@@ -37,12 +40,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
   }
 
   const handlePlayVideo = async () => {
-    try {
-      const promise = await videoRef.current?.play()
-      console.log(promise)
-    } catch (err) {
-      messageApi.warning({ duration: 3, content: "您的浏览器不支持自动播放, 请点击视频手动播放" })
-    }
+    videoRef.current?.play()
   }
 
   const handleLoadedMetadata = () => {
@@ -50,41 +48,63 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
     console.log(videoRef.current?.played)
   }
 
-  const handleTimeUpdate = (event: Event) => {
-    console.log("time update event", event)
+  const handleClickVolume = () => {
+    videoRef.current!.muted = !videoRef.current?.muted
+  }
+
+  const handleTimeUpdate = throttle(function () {
     RecommendVideoStore.setCurrentTime(videoRef.current!.currentTime)
+
+    videoProcessRef.current!.style.width = `${(videoRef.current!.currentTime / videoRef.current!.duration) * 100}%`
+  }, 750)
+
+  const handleKeydownProcess = () => {
+    console.log("key down")
+    setKeydown(true)
+  }
+
+  const handleKeyUpProcess = () => {
+    console.log("key up")
+    setKeydown(false)
+  }
+
+  const handleKeyMovePRocess = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (keydown) {
+      const totalWidth = videoProcessWrapRef.current!.getBoundingClientRect().width
+      const barLeft = videoProcessRef.current!.getBoundingClientRect().left
+      const mouseX = event.pageX
+      const offsetX = mouseX - barLeft
+      const percentage = offsetX / totalWidth
+      videoProcessRef.current!.style.width = `${percentage * 100}%`
+      videoRef.current!.currentTime = percentage * videoRef.current!.duration
+    }
   }
 
   useEffect(() => {
     if (isCurrent) {
-      videoRef.current!.muted = false
+      videoRef.current!.muted = RecommendVideoStore.muted
       handlePlayVideo()
     }
   }, [isCurrent])
 
   useEffect(() => {
     if (isCurrent) {
-      RecommendVideoStore.setUserMuted(videoRef.current!.muted)
+      RecommendVideoStore.setMuted(videoRef.current!.muted)
     }
   }, [videoRef.current?.muted])
 
   useEffect(() => {
     if (!isCurrent) return
     document.addEventListener("keydown", handleControlKeydown)
-    videoRef.current?.addEventListener("timeupdate", handleTimeUpdate)
-    videoRef.current?.addEventListener("loadedmetadata", handleLoadedMetadata)
     return () => {
       console.log("remove")
       videoRef.current?.pause()
       document.removeEventListener("keydown", handleControlKeydown)
-      videoRef.current?.removeEventListener("timeupdate", handleTimeUpdate)
-      videoRef.current?.removeEventListener("loadedmetadata", handleLoadedMetadata)
     }
   }, [isCurrent])
 
   return (
     <>
-      {contextHolder}
       <figure className='figure-video'>
         <video
           className='video-instance'
@@ -92,6 +112,8 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
           ref={videoRef}
           onClick={handleClick}
           onEnded={handleEnded}
+          onTimeUpdate={handleTimeUpdate}
+          onLoadedMetadata={handleLoadedMetadata}
           muted
           autoPlay
         >
@@ -102,15 +124,28 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
         </span>
         <div className='video-bottom-wrap'>
           <div className='video-bottom-container'>
+            <div
+              className='video-process-outline'
+              ref={videoProcessWrapRef}
+              onMouseUp={handleKeyUpProcess}
+              onMouseDown={handleKeydownProcess}
+              onMouseMove={handleKeyMovePRocess}
+            >
+              <div className='video-process-inline' ref={videoProcessRef}></div>
+            </div>
             <div className='video-bottom-left-tool'>
-              <div className='play-state flex-hor-ver-center' onClick={handleSpaceKeydown}>
-                {RecommendVideoStore.paused ? <FaPlay /> : <FaPause />}
+              <div className='flex-hor-ver-center' onClick={handleSpaceKeydown}>
+                {videoRef.current?.paused ? <FaPlay /> : <FaPause />}
               </div>
               <div className='play-current-played'>{formateSeconds(RecommendVideoStore.currentTime || 0)}</div>
               <span className='time-division'>/</span>
               <div className='play-total-duration'>{formateSeconds(videoRef.current?.duration || 0)}</div>
             </div>
-            <div className='video-bottom-right-tool'>right tool</div>
+            <div className='video-bottom-right-tool'>
+              <div className='video-volume-controls flex-hor-ver-center' onClick={handleClickVolume}>
+                {RecommendVideoStore.muted ? <BsVolumeMute /> : <BsVolumeDown />}
+              </div>
+            </div>
           </div>
         </div>
       </figure>

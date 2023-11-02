@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx"
 class RecommendVideo {
   paused: boolean = true
   currentIndex: number = 0
-  userMuted: boolean = true
+  muted: boolean = true
   currentTime: number = 0
   srcList: string[] = [
     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
@@ -32,12 +32,11 @@ class RecommendVideo {
     return this.scaleChangeVideoIndex("next")
   }
 
-  setUserMuted(muted: boolean) {
-    this.userMuted = muted
+  setMuted(muted: boolean) {
+    this.muted = muted
   }
 
   setCurrentTime(currentTime: number) {
-    console.log(currentTime)
     this.currentTime = currentTime
   }
 

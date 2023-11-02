@@ -1,4 +1,4 @@
-$bottomControlHeight: 2.5rem;
+$bottomControlHeight: 3rem;
 
 .figure-video {
   position: relative;
@@ -44,12 +44,47 @@ $bottomControlHeight: 2.5rem;
         cursor: pointer;
       }
 
+      .video-process-outline {
+        position: absolute;
+        top: -0.25rem;
+        width: 100%;
+        left: 0;
+        height: 0.3rem;
+        border-radius: 1rem;
+        background-color: $videoProcessOutlineBackColor;
+        transform-origin: center;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scaleY(3);
+        }
+
+        .video-process-inline {
+          height: 100%;
+          width: 0;
+          background-color: $videoProcessInlineBackColor;
+        }
+      }
+
       .video-bottom-left-tool {
         display: flex;
         flex-direction: row;
 
         .time-division {
           margin: 0 0.25rem;
+        }
+
+        > div {
+          min-width: 2rem;
+        }
+      }
+
+      .video-bottom-right-tool {
+        display: flex;
+        flex-direction: row;
+
+        .video-volume-controls {
+          height: 100%;
         }
 
         > div {

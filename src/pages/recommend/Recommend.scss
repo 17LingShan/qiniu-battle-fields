@@ -3,17 +3,19 @@
   max-height: 100%;
   padding: 1rem 5rem;
   background-color: $shadowBackgroundColor;
+
   .recommend-container {
     height: 100%;
     background-color: gray;
     min-width: $minWidth;
-    padding: 2rem;
-    border-radius: 3rem;
+    border-radius: 1rem;
+    overflow: hidden;
 
     .video-scroll-wrap {
       height: 100%;
       overflow: hidden;
       scroll-behavior: smooth;
+
       .video-scroll-item {
         height: 100%;
       }

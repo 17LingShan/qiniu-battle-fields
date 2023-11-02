@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react"
 import { observer } from "mobx-react"
-import RecommendVideo from "../../components/recommendVideo/RecommendVideo"
 import RecommendVideoStore from "../../store/RecommendVideo"
+import RecommendVideo from "../../components/recommendVideo/RecommendVideo"
+import { debounce } from "../../utils/common"
 import "./Recommend.scss"
 
 function Recommend() {
@@ -9,7 +10,6 @@ function Recommend() {
   const nextRef = useRef<HTMLDivElement>(null)
 
   const handleKeydown = (event: KeyboardEvent) => {
-    console.log("key down", event)
     switch (event.key) {
       case "ArrowDown":
         handleNextVideo()
@@ -34,13 +34,17 @@ function Recommend() {
     prevRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
-  useEffect(() => {
-    history.scrollRestoration = "manual"
-  }, [])
+  const handleWheel = debounce(function (event: WheelEvent) {
+    if (event.deltaY > 0) handleNextVideo()
+    else handlePrevVideo()
+  }, 500)
 
   useEffect(() => {
+    history.scrollRestoration = "manual"
+    document.addEventListener("wheel", handleWheel)
     document.addEventListener("keydown", handleKeydown)
     return () => {
+      document.removeEventListener("wheel", handleWheel)
       document.removeEventListener("keydown", handleKeydown)
     }
   }, [])
