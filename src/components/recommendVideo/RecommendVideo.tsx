@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { observer } from "mobx-react"
 import { FaPause, FaPlay } from "react-icons/fa6"
 import { BsVolumeDown, BsVolumeMute } from "react-icons/bs"
-import { debounce, formateSeconds, throttle } from "../../utils/common"
+import { formateSeconds, throttle } from "../../utils/common"
 import RecommendVideoStore from "../../store/RecommendVideo"
 import "./style/RecommendVideo.scss"
 
