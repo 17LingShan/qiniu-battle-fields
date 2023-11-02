@@ -1,14 +1,61 @@
+$bottomControlHeight: 2.5rem;
+
 .figure-video {
   position: relative;
   height: 100%;
   width: 100%;
+  min-width: $minWidth;
   display: flex;
   justify-content: center;
-  align-self: center;
-  background-color: rgb(62, 62, 58);
+  overflow: hidden;
+
+  &:hover {
+    .video-bottom-wrap {
+      bottom: 0rem;
+    }
+  }
 
   .video-instance {
     width: 100%;
     height: 100%;
+  }
+
+  .video-bottom-wrap {
+    position: absolute;
+    height: $bottomControlHeight;
+    width: 100%;
+    left: 0;
+    padding: 0.25rem 0.25rem;
+    bottom: calc(0rem - $bottomControlHeight);
+    background-color: rgba($color: #726f6f, $alpha: 0.5);
+    transition: bottom 0.5s ease;
+    color: $videoControlsFontColor;
+    line-height: calc($bottomControlHeight - 0.5rem);
+
+    .video-bottom-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      > div {
+        cursor: pointer;
+      }
+
+      .video-bottom-left-tool {
+        display: flex;
+        flex-direction: row;
+
+        .time-division {
+          margin: 0 0.25rem;
+        }
+
+        > div {
+          min-width: 2rem;
+        }
+      }
+    }
   }
 }

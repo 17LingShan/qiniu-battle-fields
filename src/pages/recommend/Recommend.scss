@@ -6,6 +6,7 @@
   .recommend-container {
     height: 100%;
     background-color: gray;
+    min-width: $minWidth;
     padding: 2rem;
     border-radius: 3rem;
 

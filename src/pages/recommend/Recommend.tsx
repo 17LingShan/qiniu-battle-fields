@@ -1,8 +1,8 @@
+import { useEffect, useRef } from "react"
 import { observer } from "mobx-react"
 import RecommendVideo from "../../components/recommendVideo/RecommendVideo"
-import "./Recommend.scss"
-import { useEffect, useRef } from "react"
 import RecommendVideoStore from "../../store/RecommendVideo"
+import "./Recommend.scss"
 
 function Recommend() {
   const prevRef = useRef<HTMLDivElement>(null)
@@ -50,7 +50,7 @@ function Recommend() {
       <div className='recommend-wrap'>
         <div className='recommend-container'>
           <div className='video-scroll-wrap'>
-            {RecommendVideoStore.srcList.map((item, index) => {
+            {RecommendVideoStore.srcList.map((_, index) => {
               const ref =
                 RecommendVideoStore.getPrevVideoIndex === index
                   ? prevRef

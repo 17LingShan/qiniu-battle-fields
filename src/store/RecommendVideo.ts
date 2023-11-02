@@ -1,13 +1,19 @@
 import { makeAutoObservable } from "mobx"
 
 class RecommendVideo {
-  paused: boolean = false
+  paused: boolean = true
   currentIndex: number = 0
+  userMuted: boolean = true
+  currentTime: number = 0
   srcList: string[] = [
     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
+    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
   ]
 
   constructor() {
@@ -26,8 +32,16 @@ class RecommendVideo {
     return this.scaleChangeVideoIndex("next")
   }
 
+  setUserMuted(muted: boolean) {
+    this.userMuted = muted
+  }
+
+  setCurrentTime(currentTime: number) {
+    console.log(currentTime)
+    this.currentTime = currentTime
+  }
+
   scaleChangeVideoIndex(type: "next" | "prev") {
-    console.log(this.srcList.length)
     return type === "next"
       ? (this.currentIndex + 1) % this.srcList.length
       : (this.currentIndex + this.srcList.length - 1) % this.srcList.length
