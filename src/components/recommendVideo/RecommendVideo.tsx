@@ -77,31 +77,26 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
 
   const handleEnterVolumeBar = () => {
     RecommendVideoStore.setVolumeBarFocus(true)
-    clearTimeout(RecommendVideoStore.volumeBarTimeoutId)
   }
 
   const handleEnterVolumeIcon = () => {
-    clearTimeout(RecommendVideoStore.volumeBarTimeoutId)
     volumeControlsBarRef.current?.classList.add("video-volume-controls-bar-block")
   }
 
   const handleLeaveVolumeBar = () => {
     RecommendVideoStore.setVolumeBarFocus(false)
-    handleLeaveBarRelation()
+    delayVolumeBarHidden()
   }
 
   const handleLeaveVolumeIcon = () => {
-    handleLeaveBarRelation()
+    delayVolumeBarHidden()
   }
 
-  const handleLeaveBarRelation = () => {
+  const delayVolumeBarHidden = () => {
     const timeoutId = setTimeout(() => {
-      if (!RecommendVideoStore.volumeBarIsFocus) {
-        volumeControlsBarRef.current?.classList.remove("video-volume-controls-bar-block")
-      } else {
-        clearTimeout(RecommendVideoStore.volumeBarTimeoutId)
-      }
+      volumeControlsBarRef.current?.classList.remove("video-volume-controls-bar-block")
     }, 500)
+
     clearTimeout(RecommendVideoStore.volumeBarTimeoutId)
     RecommendVideoStore.setVolumeBarTimeoutId(timeoutId)
   }
