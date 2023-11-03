@@ -10,7 +10,7 @@ $bottomControlHeight: 3rem;
   overflow: hidden;
 
   &:hover {
-    .video-bottom-wrap {
+    .video-controls-wrap {
       bottom: 0rem;
     }
   }
@@ -20,19 +20,24 @@ $bottomControlHeight: 3rem;
     height: 100%;
   }
 
-  .video-bottom-wrap {
+  // increase specificity, 加权重
+  & > .video-controls-wrap-hover {
+    bottom: 0;
+  }
+
+  .video-controls-wrap {
     position: absolute;
     height: $bottomControlHeight;
     width: 100%;
     left: 0;
     padding: 0.25rem 0.25rem;
-    bottom: calc(0rem - $bottomControlHeight);
+    bottom: -$bottomControlHeight;
     background-color: rgba($color: #726f6f, $alpha: 0.5);
     transition: bottom 0.5s ease;
     color: $videoControlsFontColor;
     line-height: calc($bottomControlHeight - 0.5rem);
 
-    .video-bottom-container {
+    .video-controls-container {
       position: relative;
       width: 100%;
       height: 100%;
@@ -66,7 +71,7 @@ $bottomControlHeight: 3rem;
         }
       }
 
-      .video-bottom-left-tool {
+      .video-controls-left-tool {
         display: flex;
         flex-direction: row;
 
@@ -79,12 +84,26 @@ $bottomControlHeight: 3rem;
         }
       }
 
-      .video-bottom-right-tool {
+      .video-controls-right-tool {
         display: flex;
         flex-direction: row;
 
         .video-volume-controls {
+          position: relative;
           height: 100%;
+
+          .video-volume-controls-bar {
+            display: none;
+            position: absolute;
+            top: -8.5rem;
+            height: 8rem;
+            width: 1rem;
+            background-color: rgb(48, 34, 34);
+          }
+
+          & > .video-volume-controls-bar-block {
+            display: block;
+          }
         }
 
         > div {

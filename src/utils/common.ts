@@ -26,10 +26,24 @@ export function throttle(callback: Function, delay: number) {
 // 防抖
 export function debounce(callback: Function, delay: number) {
   let t: number = 0
+
   return function () {
     if (t !== null) clearTimeout(t)
     t = setTimeout(() => {
       callback.call(this, ...arguments)
     }, delay)
+  }
+}
+
+export function canCancelTimeout(callback: Function, delay: number) {
+  let timeoutInstance: number
+
+  function cancelTimeout() {
+    clearTimeout(timeoutInstance)
+  }
+
+  return function () {
+    this.cancelTimeout = cancelTimeout
+    callback.call(this, ...arguments)
   }
 }

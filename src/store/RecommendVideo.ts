@@ -1,10 +1,12 @@
 import { makeAutoObservable } from "mobx"
 
 class RecommendVideo {
-  paused: boolean = true
-  currentIndex: number = 0
   muted: boolean = true
+  paused: boolean = true
   currentTime: number = 0
+  currentIndex: number = 0
+  volumeBarIsFocus: boolean = false
+  volumeBarTimeoutId: number = 0
   srcList: string[] = [
     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -40,6 +42,22 @@ class RecommendVideo {
     this.currentTime = currentTime
   }
 
+  setPaused(paused: boolean) {
+    this.paused = paused
+  }
+
+  setCurrentIndex(index: number) {
+    this.currentIndex = index
+  }
+
+  setVolumeBarFocus(isFocus: boolean) {
+    this.volumeBarIsFocus = isFocus
+  }
+
+  setVolumeBarTimeoutId(id: number) {
+    this.volumeBarTimeoutId = id
+  }
+
   scaleChangeVideoIndex(type: "next" | "prev") {
     return type === "next"
       ? (this.currentIndex + 1) % this.srcList.length
@@ -48,14 +66,6 @@ class RecommendVideo {
 
   changeToNextPrevVideo(type: "next" | "prev") {
     return (this.currentIndex = this.scaleChangeVideoIndex(type))
-  }
-
-  setPaused(paused: boolean) {
-    this.paused = paused
-  }
-
-  setCurrentIndex(index: number) {
-    this.currentIndex = index
   }
 }
 

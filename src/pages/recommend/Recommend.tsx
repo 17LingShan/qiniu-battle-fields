@@ -45,8 +45,21 @@ function Recommend() {
     else handlePrevVideo()
   }, 500)
 
+  const switchCurrentRef = (currentIndex: number) => {
+    switch (currentIndex) {
+      case RecommendVideoStore.getPrevVideoIndex:
+        return prevRef
+      case RecommendVideoStore.getNextVideoIndex:
+        return nextRef
+      case RecommendVideoStore.currentIndex:
+        return currentRef
+      default:
+        return undefined
+    }
+  }
+
   useEffect(() => {
-    history.scrollRestoration = "auto"
+    history.scrollRestoration = "manual"
     document.addEventListener("wheel", handleWheel)
     document.addEventListener("keydown", handleKeydown)
     handleScrollToCurrentIndex()
@@ -62,14 +75,7 @@ function Recommend() {
         <div className='recommend-container'>
           <div className='video-scroll-wrap'>
             {RecommendVideoStore.srcList.map((_, index) => {
-              const ref =
-                RecommendVideoStore.getPrevVideoIndex === index
-                  ? prevRef
-                  : RecommendVideoStore.getNextVideoIndex === index
-                  ? nextRef
-                  : RecommendVideoStore.currentIndex === index
-                  ? currentRef
-                  : undefined
+              const ref = switchCurrentRef(index)
 
               return (
                 <div className='video-scroll-item' key={index} ref={ref}>
