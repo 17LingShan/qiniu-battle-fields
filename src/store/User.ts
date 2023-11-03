@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx"
 
 class User {
-  email: string = localStorage.getItem("emial") || ""
+  email: string = localStorage.getItem("email") || ""
   token: string = localStorage.getItem("token") || "123"
   nickname = localStorage.getItem("nickname") || "未登录"
 

@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx"
 class RecommendVideo {
   muted: boolean = true
   paused: boolean = true
+  volume: number = 0
   currentTime: number = 0
   currentIndex: number = 0
   volumeBarIsFocus: boolean = false
@@ -38,12 +39,16 @@ class RecommendVideo {
     this.muted = muted
   }
 
-  setCurrentTime(currentTime: number) {
-    this.currentTime = currentTime
-  }
-
   setPaused(paused: boolean) {
     this.paused = paused
+  }
+
+  setVolume(volume: number) {
+    this.volume = volume
+  }
+
+  setCurrentTime(currentTime: number) {
+    this.currentTime = currentTime
   }
 
   setCurrentIndex(index: number) {

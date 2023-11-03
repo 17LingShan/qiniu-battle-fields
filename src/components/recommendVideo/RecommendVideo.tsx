@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react"
+import { ChangeEventHandler, useEffect, useRef, useState } from "react"
+import { toJS } from "mobx"
 import { observer } from "mobx-react"
 import { FaPause, FaPlay } from "react-icons/fa6"
 import { BsVolumeDown, BsVolumeMute } from "react-icons/bs"
@@ -137,9 +138,19 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
     }
   }
 
+  const handleVolumeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const volumeValue = +event.currentTarget.value
+    if (volumeValue > 0) videoRef.current!.muted = true
+    else videoRef.current!.muted = false
+    videoRef.current!.volume = volumeValue
+    RecommendVideoStore.setVolume(volumeValue)
+  }
+
   useEffect(() => {
     if (isCurrent) {
       videoRef.current!.muted = RecommendVideoStore.muted
+      videoRef.current!.volume = RecommendVideoStore.volume
+
       handlePlayVideo()
     } else {
       videoRef.current?.pause()
@@ -148,6 +159,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
 
   useEffect(() => {
     if (isCurrent) {
+      console.log(videoRef.current?.muted)
       RecommendVideoStore.setMuted(videoRef.current!.muted)
     }
   }, [videoRef.current?.muted])
@@ -212,8 +224,17 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
                   ref={volumeControlsBarRef}
                   onMouseEnter={handleEnterVolumeBar}
                   onMouseLeave={handleLeaveVolumeBar}
-                ></div>
-                {RecommendVideoStore.muted ? <BsVolumeMute /> : <BsVolumeDown />}
+                >
+                  <input
+                    type='range'
+                    step={0.01}
+                    min={0}
+                    max={1}
+                    value={toJS(RecommendVideoStore.volume)}
+                    onChange={handleVolumeChange}
+                  />
+                </div>
+                {RecommendVideoStore.volume > 0 ? <BsVolumeDown /> : <BsVolumeMute />}
               </div>
             </div>
           </div>
