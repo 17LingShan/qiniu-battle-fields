@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useEffect, useRef, useState } from "react"
+import { ChangeEventHandler, MouseEventHandler, useEffect, useRef, useState } from "react"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
 import { FaPause, FaPlay } from "react-icons/fa6"
@@ -140,10 +140,15 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
 
   const handleVolumeChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const volumeValue = +event.currentTarget.value
-    if (volumeValue > 0) videoRef.current!.muted = true
-    else videoRef.current!.muted = false
     videoRef.current!.volume = volumeValue
+    if (volumeValue > 0) videoRef.current!.muted = false
+    else videoRef.current!.muted = true
     RecommendVideoStore.setVolume(volumeValue)
+  }
+
+  const handleClickVolumeControlsBar: MouseEventHandler = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
   }
 
   useEffect(() => {
@@ -224,6 +229,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
                   ref={volumeControlsBarRef}
                   onMouseEnter={handleEnterVolumeBar}
                   onMouseLeave={handleLeaveVolumeBar}
+                  onClick={handleClickVolumeControlsBar}
                 >
                   <input
                     type='range'
