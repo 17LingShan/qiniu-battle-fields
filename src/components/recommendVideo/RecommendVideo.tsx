@@ -51,13 +51,11 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
     videoRef.current!.muted = !videoRef.current?.muted
   }
 
-  const handleTimeUpdate = throttle(function () {
-    console.log("currentTime", videoRef.current!.currentTime)
-    if (isCurrent) {
-      RecommendVideoStore.setCurrentTime(videoRef.current!.currentTime)
-      videoProcessRef.current!.style.width = `${(videoRef.current!.currentTime / videoRef.current!.duration) * 100}%`
-    }
-  }, 1000)
+  const handleTimeUpdate = () => {
+    console.log("currentTime in ", index, videoRef.current!.currentTime)
+    RecommendVideoStore.setCurrentTime(videoRef.current!.currentTime)
+    videoProcessRef.current!.style.width = `${(videoRef.current!.currentTime / videoRef.current!.duration) * 100}%`
+  }
 
   const handleKeydownProcess = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     console.log("key down")
@@ -106,12 +104,10 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
   useEffect(() => {
     if (!isCurrent) return
     document.addEventListener("keydown", handleControlKeydown)
-    videoRef.current?.addEventListener("timeupdate", handleTimeUpdate)
     return () => {
       console.log("remove")
       videoRef.current?.pause()
       document.removeEventListener("keydown", handleControlKeydown)
-      videoRef.current?.removeEventListener("timeupdate", handleTimeUpdate)
     }
   }, [isCurrent])
 
@@ -124,6 +120,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
           ref={videoRef}
           onClick={handleClickVideo}
           onEnded={handleEndedVideo}
+          onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
           muted
           autoPlay

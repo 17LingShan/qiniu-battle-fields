@@ -8,6 +8,7 @@ import "./Recommend.scss"
 function Recommend() {
   const prevRef = useRef<HTMLDivElement>(null)
   const nextRef = useRef<HTMLDivElement>(null)
+  const currentRef = useRef<HTMLDivElement>(null)
 
   const handleKeydown = (event: KeyboardEvent) => {
     switch (event.key) {
@@ -20,11 +21,16 @@ function Recommend() {
     }
   }
 
+  const handleScrollToCurrentIndex = () => {
+    console.log("current video")
+    currentRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
   const handleNextVideo = () => {
     console.log("next video")
     if (RecommendVideoStore.currentIndex === RecommendVideoStore.srcList.length - 1) return
     RecommendVideoStore.changeToNextPrevVideo("next")
-    nextRef.current?.scrollIntoView({ behavior: "smooth" })
+    nextRef.current?.scrollIntoView({ behavior: "instant" })
   }
 
   const handlePrevVideo = () => {
@@ -40,9 +46,10 @@ function Recommend() {
   }, 500)
 
   useEffect(() => {
-    history.scrollRestoration = "manual"
+    history.scrollRestoration = "auto"
     document.addEventListener("wheel", handleWheel)
     document.addEventListener("keydown", handleKeydown)
+    handleScrollToCurrentIndex()
     return () => {
       document.removeEventListener("wheel", handleWheel)
       document.removeEventListener("keydown", handleKeydown)
@@ -60,7 +67,10 @@ function Recommend() {
                   ? prevRef
                   : RecommendVideoStore.getNextVideoIndex === index
                   ? nextRef
+                  : RecommendVideoStore.currentIndex === index
+                  ? currentRef
                   : undefined
+
               return (
                 <div className='video-scroll-item' key={index} ref={ref}>
                   <RecommendVideo

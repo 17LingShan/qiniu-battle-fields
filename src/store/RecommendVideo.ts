@@ -37,7 +37,6 @@ class RecommendVideo {
   }
 
   setCurrentTime(currentTime: number) {
-    console.log("currentTime", currentTime)
     this.currentTime = currentTime
   }
 
