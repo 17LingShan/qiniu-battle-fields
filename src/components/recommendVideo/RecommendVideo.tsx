@@ -80,6 +80,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
   }
 
   const handleEnterVolumeIcon = () => {
+    clearTimeout(RecommendVideoStore.volumeBarTimeoutId)
     volumeControlsBarRef.current?.classList.add("video-volume-controls-bar-block")
   }
 
@@ -94,7 +95,9 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
 
   const delayVolumeBarHidden = () => {
     const timeoutId = setTimeout(() => {
-      volumeControlsBarRef.current?.classList.remove("video-volume-controls-bar-block")
+      if (!RecommendVideoStore.volumeBarIsFocus) {
+        volumeControlsBarRef.current?.classList.remove("video-volume-controls-bar-block")
+      }
     }, 500)
 
     clearTimeout(RecommendVideoStore.volumeBarTimeoutId)
