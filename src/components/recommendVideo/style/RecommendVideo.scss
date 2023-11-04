@@ -20,17 +20,12 @@ $bottomControlHeight: 3rem;
     height: 100%;
   }
 
-  // increase specificity, 加权重
-  & > .video-controls-wrap-hover {
-    bottom: 0;
-  }
-
   .video-controls-wrap {
     position: absolute;
     height: $bottomControlHeight;
     width: 100%;
     left: 0;
-    padding: 0.25rem 0.25rem;
+    padding: 0.25rem 0;
     bottom: -$bottomControlHeight;
     background-color: rgba($color: #726f6f, $alpha: 0.5);
     transition: bottom 0.5s ease;
@@ -54,20 +49,22 @@ $bottomControlHeight: 3rem;
         top: -0.25rem;
         width: 100%;
         left: 0;
-        height: 0.2rem;
+        height: 0.3rem;
         border-radius: 1rem;
         background-color: $videoProcessOutlineBackColor;
         transform-origin: center;
-        transition: transform 0.2s ease;
+        transition: transform 0.4s ease;
         overflow: hidden;
         &:hover {
           transform: scaleY(3);
         }
 
-        .video-process-inline {
+        > input[type="range"] {
+          position: absolute;
           height: 100%;
-          width: 0;
-          background-color: $videoProcessInlineBackColor;
+          width: 100%;
+          accent-color: $activeFontColor;
+          cursor: pointer;
         }
       }
 
@@ -95,13 +92,12 @@ $bottomControlHeight: 3rem;
           .video-volume-controls-bar {
             display: none;
             position: absolute;
-            top: -10.5rem;
+            top: -11.5rem;
             height: 10rem;
             width: 1.5rem;
             padding: 1rem 0;
             background-color: $shadowBackgroundColor;
             border-radius: 0.2rem;
-            // writing-mode: bt-lr;
 
             > input[type="range"] {
               width: 100%;
@@ -109,7 +105,11 @@ $bottomControlHeight: 3rem;
               writing-mode: bt-lr;
               appearance: slider-vertical;
               accent-color: $activeFontColor;
-              outline: none;
+              cursor: pointer;
+
+              &:focus {
+                outline: none;
+              }
 
               &::-webkit-slider-runnable-track {
                 width: 1rem;
@@ -121,7 +121,6 @@ $bottomControlHeight: 3rem;
               &::-webkit-slider-thumb {
                 height: 0.5rem;
                 width: 0.5rem;
-                background-color: skyblue;
               }
             }
           }
