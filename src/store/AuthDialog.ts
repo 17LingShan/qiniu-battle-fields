@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx"
 
 export class AuthDialog {
   isOpen: boolean = false
+  authTabIndex: number = 0
 
   constructor() {
     makeAutoObservable(this)
@@ -13,6 +14,10 @@ export class AuthDialog {
 
   closeDialog() {
     this.isOpen = false
+  }
+
+  setAuthTabIndex(index: number) {
+    this.authTabIndex = index
   }
 }
 

@@ -6,14 +6,9 @@ class User {
   token: string = localStorage.getItem("token") || ""
   nickname = localStorage.getItem("nickname") || "未登录"
   profile: APIParams.Profile = {}
-  authTabIndex: number = 0
 
   constructor() {
     makeAutoObservable(this)
-  }
-
-  setAuthTabIndex(index: number) {
-    this.authTabIndex = index
   }
 
   setNickname(nickname: string) {
@@ -47,6 +42,8 @@ class User {
   logout() {
     this.nickname = ""
     this.token = ""
+    localStorage.removeItem("token")
+    localStorage.removeItem("nickname")
   }
 }
 

@@ -1,12 +1,12 @@
-import { observer } from "mobx-react"
-import "./style/AuthForm.scss"
-import { Button, Form, Input, Space, message } from "antd"
-import { BiUserCircle } from "react-icons/bi"
-import { AiOutlineKey, AiOutlineMail } from "react-icons/ai"
-
 import { useState } from "react"
-import { fetchCaptcha, login, register } from "../../apis/user"
+import { observer } from "mobx-react"
+import { BiUserCircle } from "react-icons/bi"
+import { Button, Form, Input, Space, message } from "antd"
+import { AiOutlineKey, AiOutlineMail } from "react-icons/ai"
 import UserStore from "../../store/User"
+import AuthDialogStore from "../../store/AuthDialog"
+import { fetchCaptcha, login, register } from "../../apis/user"
+import "./style/AuthForm.scss"
 
 interface LoginFieldType {
   email: string
@@ -42,6 +42,12 @@ function AuthForm() {
         nickname: res.data.user.nickname,
         createAt: res.data.user.createAt
       })
+      messageApi.open({
+        type: "success",
+        content: "登陆成功!"
+      })
+
+      AuthDialogStore.closeDialog()
     } catch (err) {
       messageApi.open({
         type: "error",
@@ -54,7 +60,7 @@ function AuthForm() {
     try {
       await register({ email: email, password: password, nickname: nickname, captcha: captcha })
 
-      UserStore.setAuthTabIndex(0)
+      AuthDialogStore.setAuthTabIndex(0)
       messageApi.open({
         type: "success",
         content: "注册成功!"
@@ -67,7 +73,7 @@ function AuthForm() {
         })
 
         setCaptcha("")
-        UserStore.setAuthTabIndex(0)
+        AuthDialogStore.setAuthTabIndex(0)
       } else {
         messageApi.open({
           type: "error",
@@ -99,7 +105,7 @@ function AuthForm() {
       {contextHolder}
       <div className='auth-form-wrap'>
         <div className='auth-form-container'>
-          {UserStore.authTabIndex === 0 ? (
+          {AuthDialogStore.authTabIndex === 0 ? (
             <>
               <Form
                 name='login'
