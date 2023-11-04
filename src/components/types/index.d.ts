@@ -5,7 +5,5 @@ declare namespace GlobalDialog {
 
   interface SmoothNavProps {
     navList: NavItem[]
-    currentIndex: number
-    setNavIndex: React.Dispatch<React.SetStateAction<number>>
   }
 }

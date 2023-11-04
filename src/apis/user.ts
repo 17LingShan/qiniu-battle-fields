@@ -3,7 +3,8 @@ import { request } from "../utils/request"
 const api = {
   register: "/v1/auth/register",
   login: "/v1/auth/login",
-  captcha: "/v1/auth/activate"
+  captcha: "/v1/auth/captcha",
+  profile: "/v1/profile/"
 }
 
 export function register(params: APIParams.RegisterParams) {
@@ -27,5 +28,20 @@ export function fetchCaptcha(params: APIParams.FetchCaptchaParams) {
     url: api.captcha,
     method: "post",
     data: params
+  })
+}
+
+export function getProfile(params: APIParams.GetProfileParams) {
+  return request({
+    url: api.profile + params.id,
+    method: "get"
+  })
+}
+
+export function putProfile(params: APIParams.PutProfileParams) {
+  return request({
+    url: api.profile + params.id,
+    method: "put",
+    data: params.profile
   })
 }

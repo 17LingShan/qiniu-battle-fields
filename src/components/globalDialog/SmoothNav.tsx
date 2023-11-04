@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react"
 import { observer } from "mobx-react"
 import "./style/SmoothNav.scss"
+import UserStore from "../../store/User"
 
-function SmoothNav({ navList, currentIndex, setNavIndex }: GlobalDialog.SmoothNavProps) {
+function SmoothNav({ navList }: GlobalDialog.SmoothNavProps) {
   const smoothBarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    smoothBarRef.current!.style.left = `${50 * currentIndex}%`
-  }, [currentIndex])
+    smoothBarRef.current!.style.left = `${50 * UserStore.authTabIndex}%`
+  }, [UserStore.authTabIndex])
 
   return (
     <>
@@ -15,7 +16,7 @@ function SmoothNav({ navList, currentIndex, setNavIndex }: GlobalDialog.SmoothNa
         <div className='smooth-nav-container'>
           <ul className='smooth-nav-ul'>
             {navList.map((item, index) => (
-              <li key={index} onClick={() => setNavIndex(index)}>
+              <li key={index} onClick={() => UserStore.setAuthTabIndex(index)}>
                 {item.text}
               </li>
             ))}

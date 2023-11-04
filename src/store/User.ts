@@ -1,12 +1,19 @@
 import { makeAutoObservable } from "mobx"
 
 class User {
+  id: string = "0"
   email: string = localStorage.getItem("email") || ""
-  token: string = localStorage.getItem("token") || "123"
+  token: string = localStorage.getItem("token") || ""
   nickname = localStorage.getItem("nickname") || "未登录"
+  profile: APIParams.Profile = {}
+  authTabIndex: number = 0
 
   constructor() {
     makeAutoObservable(this)
+  }
+
+  setAuthTabIndex(index: number) {
+    this.authTabIndex = index
   }
 
   setNickname(nickname: string) {
@@ -24,6 +31,17 @@ class User {
     this.nickname = nickname
     localStorage.setItem("email", this.email)
     localStorage.setItem("nickname", this.nickname)
+  }
+
+  loginSuccess(params: Pick<APIParams.User, "email" | "id" | "nickname" | "token" | "createAt" | "profile">) {
+    this.email = params.email
+    this.token = params.token
+    this.id = params.id
+    this.nickname = params.nickname
+    this.profile = params.profile
+
+    localStorage.setItem("token", params.token)
+    localStorage.setItem("nickname", params.nickname)
   }
 
   logout() {

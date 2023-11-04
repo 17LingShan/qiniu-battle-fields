@@ -47,10 +47,10 @@ function HeaderDrawer() {
         <div className='dialog-container'>
           <div className='dialog-profile-control'>
             <div className='dialog-nickname' onClick={() => navigate("/profile")}>
-              <div>{UserStore.nickname}</div>
+              <div>{UserStore.nickname || "未登录"}</div>
               <FaAngleRight />
             </div>
-            <div className='dialog-logout-button' onClick={() => UserStore.setToken("")}>
+            <div className='dialog-logout-button' onClick={() => UserStore.logout()}>
               退出登录
             </div>
           </div>

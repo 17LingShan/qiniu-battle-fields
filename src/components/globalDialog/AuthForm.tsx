@@ -1,13 +1,12 @@
 import { observer } from "mobx-react"
 import "./style/AuthForm.scss"
 import { Button, Form, Input, Space, message } from "antd"
-import { KeyOutlined, MailOutlined } from "@ant-design/icons"
+import { BiUserCircle } from "react-icons/bi"
+import { AiOutlineKey, AiOutlineMail } from "react-icons/ai"
+
 import { useState } from "react"
 import { fetchCaptcha, login, register } from "../../apis/user"
-
-interface AuthFormProps {
-  currentIndex: number
-}
+import UserStore from "../../store/User"
 
 interface LoginFieldType {
   email: string
@@ -21,17 +20,28 @@ interface RegisterFieldType {
   captcha: string
 }
 
-function AuthForm({ currentIndex }: AuthFormProps) {
+function AuthForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [nickname, setNIckname] = useState("")
   const [captcha, setCaptcha] = useState("")
+  const [captchaButtonDisable, setCaptchaDisable] = useState(false)
+
   const [messageApi, contextHolder] = message.useMessage()
 
   const handleLogin = async () => {
     try {
       const res = await login({ email: email, password: password })
-      console.log(res)
+      console.log(res.data)
+
+      UserStore.loginSuccess({
+        id: res.data.user.id,
+        token: res.data.token,
+        profile: res.data.profile,
+        email: res.data.user.email,
+        nickname: res.data.user.nickname,
+        createAt: res.data.user.createAt
+      })
     } catch (err) {
       messageApi.open({
         type: "error",
@@ -42,20 +52,40 @@ function AuthForm({ currentIndex }: AuthFormProps) {
 
   const handleRegister = async () => {
     try {
-      const res = await register({ email: email, password: password, nickname: nickname })
-      console.log(res)
-    } catch (err) {
+      await register({ email: email, password: password, nickname: nickname, captcha: captcha })
+
+      UserStore.setAuthTabIndex(0)
       messageApi.open({
-        type: "error",
-        content: "发生错误, 请检查网络是否正常"
+        type: "success",
+        content: "注册成功!"
       })
+    } catch (err: any) {
+      if (err.message.includes("409")) {
+        messageApi.open({
+          type: "warning",
+          content: "请勿重复注册!"
+        })
+
+        setCaptcha("")
+        UserStore.setAuthTabIndex(0)
+      } else {
+        messageApi.open({
+          type: "error",
+          content: "发生错误, 请检查网络是否正常"
+        })
+      }
     }
   }
 
   const handleFetchCaptcha = async () => {
     try {
       const res = await fetchCaptcha({ email: email })
-      console.log(res)
+      setCaptchaDisable(true)
+      console.log(res.data)
+      messageApi.open({
+        type: "success",
+        content: "发送成功, 请检查邮箱!"
+      })
     } catch (err) {
       messageApi.open({
         type: "error",
@@ -69,7 +99,7 @@ function AuthForm({ currentIndex }: AuthFormProps) {
       {contextHolder}
       <div className='auth-form-wrap'>
         <div className='auth-form-container'>
-          {currentIndex === 0 ? (
+          {UserStore.authTabIndex === 0 ? (
             <>
               <Form
                 name='login'
@@ -83,7 +113,7 @@ function AuthForm({ currentIndex }: AuthFormProps) {
                   name='email'
                   rules={[{ required: true, message: "请输入邮箱!" }]}
                 >
-                  <Input prefix={<MailOutlined />} value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+                  <Input prefix={<AiOutlineMail />} value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
                 </Form.Item>
 
                 <Form.Item<LoginFieldType>
@@ -94,7 +124,7 @@ function AuthForm({ currentIndex }: AuthFormProps) {
                 >
                   <Input
                     type='password'
-                    prefix={<KeyOutlined />}
+                    prefix={<AiOutlineKey />}
                     value={password}
                     onChange={(e) => setPassword(e.currentTarget.value)}
                   />
@@ -122,7 +152,7 @@ function AuthForm({ currentIndex }: AuthFormProps) {
                   style={{ marginBottom: "0.5rem" }}
                   rules={[{ required: true, message: "请输入邮箱!" }]}
                 >
-                  <Input prefix={<MailOutlined />} value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+                  <Input prefix={<AiOutlineMail />} value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
                 </Form.Item>
                 <Form.Item<RegisterFieldType>
                   label='密码'
@@ -131,7 +161,7 @@ function AuthForm({ currentIndex }: AuthFormProps) {
                   rules={[{ required: true, message: "请输入密码!" }]}
                 >
                   <Input
-                    prefix={<KeyOutlined />}
+                    prefix={<AiOutlineKey />}
                     value={password}
                     onChange={(e) => setPassword(e.currentTarget.value)}
                   />
@@ -143,7 +173,7 @@ function AuthForm({ currentIndex }: AuthFormProps) {
                   rules={[{ required: true, message: "请输入昵称!" }]}
                 >
                   <Input
-                    prefix={<KeyOutlined />}
+                    prefix={<BiUserCircle />}
                     value={nickname}
                     onChange={(e) => setNIckname(e.currentTarget.value)}
                   />
@@ -155,12 +185,13 @@ function AuthForm({ currentIndex }: AuthFormProps) {
                   rules={[{ required: true, message: "请输入验证码!" }]}
                 >
                   <Space.Compact style={{ width: "100%" }}>
-                    <Input
-                      prefix={<KeyOutlined />}
-                      value={captcha}
-                      onChange={(e) => setCaptcha(e.currentTarget.value)}
-                    />
-                    <Button type='primary' style={{ width: "50%" }} onClick={handleFetchCaptcha}>
+                    <Input value={captcha} onChange={(e) => setCaptcha(e.currentTarget.value)} />
+                    <Button
+                      type='primary'
+                      style={{ width: "50%" }}
+                      disabled={captchaButtonDisable}
+                      onClick={handleFetchCaptcha}
+                    >
                       发送验证码
                     </Button>
                   </Space.Compact>

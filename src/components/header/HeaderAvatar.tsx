@@ -20,7 +20,7 @@ function GlobalAvatar() {
         <div className='avatar-entity'>
           {UserStore.token ? (
             <img
-              src={UserStore.token ? puluona : BaiZi}
+              src={UserStore.token ? UserStore.profile?.avatarLink || puluona : BaiZi}
               className='avatar-img'
               onClick={handleClickAvatar}
               onMouseEnter={() => HeaderDrawerStore.showDialog()}

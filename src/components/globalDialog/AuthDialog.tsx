@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { observer } from "mobx-react"
 import { FaXmark } from "react-icons/fa6"
 import AuthForm from "./AuthForm"
@@ -9,7 +9,6 @@ import "./style/AuthDialog.scss"
 function AuthDialog() {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const navList = useMemo(() => [{ text: "登录" }, { text: "注册" }], [])
-  const [navIndex, setNavIndex] = useState(0)
 
   const handleClickBackdrop = (event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
     const rect = dialogRef.current!.getBoundingClientRect()
@@ -44,9 +43,9 @@ function AuthDialog() {
             <FaXmark />
           </div>
           <div className='auth-dialog-container'>
-            <SmoothNav currentIndex={navIndex} setNavIndex={setNavIndex} navList={navList} />
+            <SmoothNav navList={navList} />
             <div className='input-form-container'>
-              <AuthForm currentIndex={navIndex} />
+              <AuthForm />
             </div>
           </div>
         </div>
