@@ -20,8 +20,8 @@ export function throttle(callback: Function, delay: number) {
 
   return function () {
     if (t) {
+      callback.call(this, ...arguments)
       setTimeout(() => {
-        callback.call(this, ...arguments)
         t = true
       }, delay)
     }

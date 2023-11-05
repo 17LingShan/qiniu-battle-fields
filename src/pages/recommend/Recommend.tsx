@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react"
 import { observer } from "mobx-react"
 import RecommendVideoStore from "../../store/RecommendVideo"
 import RecommendVideo from "../../components/recommendVideo/RecommendVideo"
-import { debounce } from "../../utils/common"
+import { debounce, throttle } from "../../utils/common"
 import "./style/Recommend.scss"
 
 function Recommend() {
@@ -27,19 +27,17 @@ function Recommend() {
     currentRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
-  const handleNextVideo = () => {
-    console.log("next video")
+  const handleNextVideo = throttle(() => {
     if (RecommendVideoStore.currentIndex === RecommendVideoStore.srcList.length - 1) return
     RecommendVideoStore.changeToNextPrevVideo("next")
-    nextRef.current?.scrollIntoView({ behavior: "instant" })
-  }
+    nextRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, 400)
 
-  const handlePrevVideo = () => {
-    console.log("pre video")
+  const handlePrevVideo = throttle(() => {
     if (RecommendVideoStore.currentIndex === 0) return
     RecommendVideoStore.changeToNextPrevVideo("prev")
-    prevRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
-  }
+    prevRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, 400)
 
   const handleWheel = debounce(function (event: WheelEvent) {
     if (event.deltaY > 0) handleNextVideo()
@@ -59,18 +57,36 @@ function Recommend() {
     }
   }
 
-  useEffect(() => {
-    if (RecommendVideoStore.isFullScreen) previewRef.current?.requestFullscreen()
-    else {
-      document.exitFullscreen().catch((err) => {})
+  // 因为如果使用esc退出全屏时, 监听不到keydown:Escape, 所以这俩写多一个函数
+  const handleFullScreenChange = (event: Event) => {
+    console.log("full changed")
+    RecommendVideoStore.setFullScreen(document.fullscreenElement ? true : false)
+    currentRef.current?.scrollIntoView({ behavior: "instant" }) // 防止进入或推出全屏时会卡一半
+  }
+
+  const effectFullScreenState = async () => {
+    try {
+      if (RecommendVideoStore.isFullScreen) {
+        await previewRef.current?.requestFullscreen()
+      } else {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen()
+        }
+      }
+    } catch (err) {
+      console.log(err)
     }
+  }
+
+  useEffect(() => {
+    effectFullScreenState()
   }, [RecommendVideoStore.isFullScreen])
 
   useEffect(() => {
     history.scrollRestoration = "manual"
     document.addEventListener("wheel", handleWheel)
     document.addEventListener("keydown", handleKeydown)
-
+    document.onfullscreenchange = handleFullScreenChange
     handleScrollToCurrentIndex()
     return () => {
       document.removeEventListener("wheel", handleWheel)

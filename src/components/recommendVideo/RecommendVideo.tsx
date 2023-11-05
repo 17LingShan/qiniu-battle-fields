@@ -56,6 +56,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
   }
 
   const handleFullScreenClick = () => {
+    console.log("click full screen")
     RecommendVideoStore.setFullScreen(!RecommendVideoStore.isFullScreen)
   }
 
