@@ -6,7 +6,6 @@
 
   .recommend-container {
     height: 100%;
-    background-color: gray;
     min-width: $minWidth;
     border-radius: 1rem;
     overflow: hidden;
@@ -14,7 +13,6 @@
     .video-scroll-wrap {
       height: 100%;
       overflow: hidden;
-      // scroll-behavior: smooth;
 
       .video-scroll-item {
         height: 100%;

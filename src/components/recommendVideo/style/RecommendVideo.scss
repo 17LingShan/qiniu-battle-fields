@@ -8,6 +8,7 @@ $bottomControlHeight: 3rem;
   display: flex;
   justify-content: center;
   overflow: hidden;
+  background-color: gray;
 
   &:hover {
     .video-controls-wrap {
@@ -27,7 +28,6 @@ $bottomControlHeight: 3rem;
     width: 100%;
     height: $bottomControlHeight;
     padding: 0.25rem 0;
-    background-color: rgba($color: #726f6f, $alpha: 0.5);
     transition: bottom 0.5s ease;
     color: $videoControlsFontColor;
     line-height: calc($bottomControlHeight - 0.5rem);

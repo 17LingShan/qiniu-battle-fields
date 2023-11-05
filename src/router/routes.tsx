@@ -12,11 +12,11 @@ export const routes: RouteObject[] = [
     element: <DefaultLayout />,
     children: [
       {
-        path: "/",
+        path: "/home",
         element: <Home />
       },
       {
-        path: "/recommend",
+        path: "/",
         element: <Recommend />
       },
       {

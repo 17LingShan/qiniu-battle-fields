@@ -15,6 +15,7 @@ interface Props {
 
 function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const figureRef = useRef<HTMLDivElement>(null)
   const controlsRef = useRef<HTMLDivElement>(null)
   const volumeControlsBarRef = useRef<HTMLDivElement>(null)
 
@@ -65,7 +66,14 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
   }
 
   const handleClickVolume = () => {
-    videoRef.current!.muted = !videoRef.current?.muted
+    if (RecommendVideoStore.volume === 0) {
+      videoRef.current!.volume = 0.3
+      videoRef.current!.muted = false
+      RecommendVideoStore.setVolume(0.3)
+    } else {
+      videoRef.current!.muted = !videoRef.current?.muted
+      RecommendVideoStore.setVolume(0)
+    }
   }
 
   const handleEnterVolumeBar = () => {
@@ -124,6 +132,9 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
     if (isCurrent) {
       videoRef.current!.muted = RecommendVideoStore.muted
       videoRef.current!.volume = RecommendVideoStore.volume
+      console.log(videoInfo.post.video.coverLink)
+      figureRef.current!.style.backgroundImage = `url('${videoInfo.post.video.coverLink}')`
+
       handlePlayVideo()
     } else {
       videoRef.current?.pause()
@@ -148,7 +159,7 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
 
   return (
     <>
-      <figure className='figure-video'>
+      <figure className='figure-video' ref={figureRef}>
         <video
           className='video-instance'
           id='video'
