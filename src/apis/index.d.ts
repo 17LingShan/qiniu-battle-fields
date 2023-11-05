@@ -1,4 +1,50 @@
-namespace APIParams {
+declare namespace APIParams {
+  type RegisterParams = Pick<APIDataSchemas.User, "email" | "nickname" | "password"> & { captcha: string }
+
+  type LoginParams = Pick<APIDataSchemas.User, "email" | "password">
+
+  type FetchCaptchaParams = Pick<APIDataSchemas.User, "email">
+
+  type GetUserInfoParams = NonNullable<Pick<APIDataSchemas.User, "userId">>
+
+  type GetProfileParams = Pick<APIDataSchemas.User, "userId">
+
+  type PutProfileParams = Pick<APIDataSchemas.User, "userId" | "profile">
+
+  interface RecommendVideoParams {
+    pageSize?: number
+    pagePos: number
+  }
+}
+
+declare namespace APIResponse {
+  type GetTagsResponse = APIDataSchemas.TagItem[]
+
+  type GetUserInfo = APIDataSchemas.UserItem
+
+  interface GetUserInfoResponse {
+    userItem: GetUserInfo
+  }
+
+  interface PostItem {
+    post: APIDataSchemas.Post
+    isLinked: boolean
+    isCollected: boolean
+    isShared: boolean
+    likedNum: number
+    collectedNum: number
+    sharedNum: number
+  }
+
+  interface RecommendVideoResponse {
+    total: number
+    pageSize: number
+    pagePost: number
+    postItems: PostItem[]
+  }
+}
+
+declare namespace APIDataSchemas {
   interface User {
     email: string
     userId: string
@@ -18,28 +64,7 @@ namespace APIParams {
     avatarLink?: string
   }
 
-  type RegisterParams = Pick<User, "email" | "nickname" | "password"> & { captcha: string }
-
-  type LoginParams = Pick<User, "email" | "password">
-
-  type FetchCaptchaParams = Pick<User, "email">
-
-  type GetUserInfoParams = NonNullable<Pick<User, "userId">>
-
-  type GetProfileParams = Pick<User, "userId">
-
-  type PutProfileParams = Pick<User, "userId" | "profile">
-}
-
-namespace APIResponse {
-  interface GetTagItem {
-    userId: number
-    name: string
-    description: string
-  }
-  type GetTagsResponse = GetTagItem[]
-
-  type GetUserInfoUser = Pick<APIParams.User, "userId" | "email" | "nickname" | "createAt" | "profile">
+  type GetUserInfoUser = Pick<APIDataSchemas.User, "userId" | "email" | "nickname" | "createAt" | "profile">
 
   interface UserItem {
     followedNum: number
@@ -47,10 +72,25 @@ namespace APIResponse {
     isFollowed: boolean
     user: GetUserInfoUser
   }
+  interface TagItem {
+    tagId: number
+    name: string
+    description: string
+  }
 
-  type GetUserInfo = UserItem
+  interface VideoItem {
+    srcLink: string
+    coverLink: string
+  }
 
-  interface GetUserInfoResponse {
-    userItem: GetUserInfo
+  interface Post {
+    postId: string
+    title: string
+    description: string
+    userId: string
+    tags: TagItem[]
+    video: VideoItem
+    updatedAt: string
+    createdAt: string
   }
 }

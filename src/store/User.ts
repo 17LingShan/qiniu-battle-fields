@@ -5,7 +5,7 @@ class User {
   email: string = localStorage.getItem("email") || ""
   token: string = localStorage.getItem("token") || ""
   nickname = localStorage.getItem("nickname") || "未登录"
-  profile: APIParams.Profile = {}
+  profile: APIDataSchemas.Profile = {}
 
   constructor() {
     makeAutoObservable(this)
@@ -21,7 +21,7 @@ class User {
     if (!this.token) this.logout()
   }
 
-  loginSuccess(params: Pick<APIParams.User, "email" | "userId" | "nickname" | "createAt" | "profile" | "token">) {
+  loginSuccess(params: Pick<APIDataSchemas.User, "email" | "userId" | "nickname" | "createAt" | "profile" | "token">) {
     this.email = params.email
     this.token = params.token
     this.userId = params.userId

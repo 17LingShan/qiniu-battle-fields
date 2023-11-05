@@ -8,18 +8,17 @@ import RecommendVideoStore from "../../store/RecommendVideo"
 import "./style/RecommendVideo.scss"
 
 interface Props {
-  src: string
+  videoInfo: APIResponse.PostItem
   index?: number
   isCurrent: boolean
 }
 
-function RecommendVideo({ index, isCurrent, src }: Props) {
+function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const controlsRef = useRef<HTMLDivElement>(null)
   const volumeControlsBarRef = useRef<HTMLDivElement>(null)
 
   const handleControlKeydown = (event: KeyboardEvent) => {
-    console.log(event.key)
     switch (event.key) {
       case "ArrowLeft":
         handleVideoSkipTime(-1)
@@ -45,6 +44,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
   const handleClickVideo = () => {
     console.log("click video")
     handleSpaceKeydown()
+    console.log(encodeURI(videoInfo.post.video.srcLink))
   }
 
   const handleEndedVideo = () => {
@@ -124,7 +124,6 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
     if (isCurrent) {
       videoRef.current!.muted = RecommendVideoStore.muted
       videoRef.current!.volume = RecommendVideoStore.volume
-
       handlePlayVideo()
     } else {
       videoRef.current?.pause()
@@ -133,7 +132,6 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
 
   useEffect(() => {
     if (isCurrent) {
-      console.log(videoRef.current?.muted)
       RecommendVideoStore.setMuted(videoRef.current!.muted)
     }
   }, [videoRef.current?.muted])
@@ -162,7 +160,7 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
           muted
           autoPlay
         >
-          <source src={src} />
+          <source src={videoInfo.post.video.srcLink} />
         </video>
         <span style={{ position: "absolute", left: 0, top: 0, background: "white", color: "black", zIndex: "9" }}>
           {index}

@@ -6,26 +6,30 @@ class RecommendVideo {
   paused: boolean = true
   currentTime: number = 0
   currentIndex: number = 0
+  currentPageSize: number = 10
+  currentPagePosition: number = 0
   volumeBarIsFocus: boolean = false
   volumeBarTimeoutId: number = 0
   isFullScreen: boolean = false
-  srcList: string[] = [
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
-  ]
+  videoInfos: APIResponse.PostItem[] = []
+
+  // srcList: string[] = [
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+  // ]
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  get currentVideoSrc() {
-    return this.srcList[this.currentIndex]
+  get CurrentVideoInfo() {
+    return this.videoInfos![this.currentIndex]
   }
 
   get getPrevVideoIndex() {
@@ -68,10 +72,22 @@ class RecommendVideo {
     this.volumeBarTimeoutId = id
   }
 
+  setCurrentPage(pageSize: number) {
+    this.currentPageSize = pageSize
+  }
+
+  setCurrentPos(position: number) {
+    this.currentPagePosition = position
+  }
+
+  setVideoInfos(videoInfos: APIResponse.PostItem[]) {
+    this.videoInfos = videoInfos
+  }
+
   scaleChangeVideoIndex(type: "next" | "prev") {
     return type === "next"
-      ? (this.currentIndex + 1) % this.srcList.length
-      : (this.currentIndex + this.srcList.length - 1) % this.srcList.length
+      ? (this.currentIndex + 1) % this.videoInfos!.length
+      : (this.currentIndex + this.videoInfos!.length - 1) % this.videoInfos!.length
   }
 
   changeToNextPrevVideo(type: "next" | "prev") {

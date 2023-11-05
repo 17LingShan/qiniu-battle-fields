@@ -3,14 +3,14 @@ import { observer } from "mobx-react"
 import { Outlet } from "react-router-dom"
 import { AiOutlineFileUnknown } from "react-icons/ai"
 import { FaFaceGrinStars, FaHouseChimney, FaUserCheck, FaUserGroup } from "react-icons/fa6"
+import UserStore from "../../store/User"
+import { getTags } from "../../apis/videos"
 import Logo from "../../components/menu/Logo"
 import LeftMenu from "../../components/menu/LeftMenu"
 import GlobalHeader from "../../components/header/GlobalHeader"
 import AuthDialog from "../../components/globalDialog/AuthDialog"
-import UserStore from "../../store/User"
-import { getTags } from "../../apis/common"
 import { menuItemIconMap } from "../../utils/common"
-import "./DefaultLayout.scss"
+import "./style/DefaultLayout.scss"
 
 const buttonList: Menu.MenuItem[] = [
   {
@@ -50,7 +50,7 @@ function DefaultLayout() {
       setChannelList(
         (data.tags as APIResponse.GetTagsResponse).map((item) => ({
           text: item.name,
-          path: `channel/${item.userId}`,
+          path: `channel/${item.tagId}`,
           Icon: menuItemIconMap[item.name] || AiOutlineFileUnknown
         }))
       )

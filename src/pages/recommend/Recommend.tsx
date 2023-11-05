@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react"
 import { observer } from "mobx-react"
+import message from "antd/es/message"
 import RecommendVideoStore from "../../store/RecommendVideo"
 import RecommendVideo from "../../components/recommendVideo/RecommendVideo"
+import { getRecommendVideos } from "../../apis/videos"
 import { debounce, throttle } from "../../utils/common"
 import "./style/Recommend.scss"
 
@@ -10,6 +12,22 @@ function Recommend() {
   const nextRef = useRef<HTMLDivElement>(null)
   const currentRef = useRef<HTMLDivElement>(null)
   const previewRef = useRef<HTMLDivElement>(null)
+  const [messageApi, contextHolder] = message.useMessage({ maxCount: 1 })
+
+  const handleFetchRecommendVideos = async () => {
+    try {
+      const { data } = (await getRecommendVideos({
+        pageSize: RecommendVideoStore.currentPageSize,
+        pagePos: RecommendVideoStore.currentPagePosition
+      })) as { data: APIResponse.RecommendVideoResponse }
+
+      RecommendVideoStore.setVideoInfos(data.postItems)
+    } catch (err) {
+      messageApi.warning({
+        content: "网络错误, 请刷新页面重试!"
+      })
+    }
+  }
 
   const handleKeydown = (event: KeyboardEvent) => {
     switch (event.key) {
@@ -28,7 +46,7 @@ function Recommend() {
   }
 
   const handleNextVideo = throttle(() => {
-    if (RecommendVideoStore.currentIndex === RecommendVideoStore.srcList.length - 1) return
+    if (RecommendVideoStore.currentIndex === RecommendVideoStore.videoInfos!.length - 1) return
     RecommendVideoStore.changeToNextPrevVideo("next")
     nextRef.current?.scrollIntoView({ behavior: "smooth" })
   }, 400)
@@ -88,6 +106,7 @@ function Recommend() {
     document.addEventListener("keydown", handleKeydown)
     document.onfullscreenchange = handleFullScreenChange
     handleScrollToCurrentIndex()
+    handleFetchRecommendVideos()
     return () => {
       document.removeEventListener("wheel", handleWheel)
       document.removeEventListener("keydown", handleKeydown)
@@ -96,17 +115,18 @@ function Recommend() {
 
   return (
     <>
+      {contextHolder}
       <div className='recommend-wrap'>
         <div className='recommend-container'>
           <div className='video-scroll-wrap' ref={previewRef}>
-            {RecommendVideoStore.srcList.map((_, index) => {
+            {RecommendVideoStore.videoInfos!.map((_, index) => {
               const ref = switchCurrentRef(index)
 
               return (
                 <div className='video-scroll-item' key={index} ref={ref}>
                   <RecommendVideo
                     index={index}
-                    src={RecommendVideoStore.srcList[index]}
+                    videoInfo={RecommendVideoStore.videoInfos[index]}
                     isCurrent={RecommendVideoStore.currentIndex === index}
                   />
                 </div>
