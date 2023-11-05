@@ -9,6 +9,7 @@ function Recommend() {
   const prevRef = useRef<HTMLDivElement>(null)
   const nextRef = useRef<HTMLDivElement>(null)
   const currentRef = useRef<HTMLDivElement>(null)
+  const previewRef = useRef<HTMLDivElement>(null)
 
   const handleKeydown = (event: KeyboardEvent) => {
     switch (event.key) {
@@ -37,7 +38,7 @@ function Recommend() {
     console.log("pre video")
     if (RecommendVideoStore.currentIndex === 0) return
     RecommendVideoStore.changeToNextPrevVideo("prev")
-    prevRef.current?.scrollIntoView({ behavior: "smooth" })
+    prevRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
   }
 
   const handleWheel = debounce(function (event: WheelEvent) {
@@ -59,9 +60,17 @@ function Recommend() {
   }
 
   useEffect(() => {
+    if (RecommendVideoStore.isFullScreen) previewRef.current?.requestFullscreen()
+    else {
+      document.exitFullscreen().catch((err) => {})
+    }
+  }, [RecommendVideoStore.isFullScreen])
+
+  useEffect(() => {
     history.scrollRestoration = "manual"
     document.addEventListener("wheel", handleWheel)
     document.addEventListener("keydown", handleKeydown)
+
     handleScrollToCurrentIndex()
     return () => {
       document.removeEventListener("wheel", handleWheel)
@@ -73,7 +82,7 @@ function Recommend() {
     <>
       <div className='recommend-wrap'>
         <div className='recommend-container'>
-          <div className='video-scroll-wrap'>
+          <div className='video-scroll-wrap' ref={previewRef}>
             {RecommendVideoStore.srcList.map((_, index) => {
               const ref = switchCurrentRef(index)
 

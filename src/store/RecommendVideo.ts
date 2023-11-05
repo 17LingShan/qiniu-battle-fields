@@ -1,13 +1,14 @@
 import { makeAutoObservable } from "mobx"
 
 class RecommendVideo {
+  volume: number = 0
   muted: boolean = true
   paused: boolean = true
-  volume: number = 0
   currentTime: number = 0
   currentIndex: number = 0
   volumeBarIsFocus: boolean = false
   volumeBarTimeoutId: number = 0
+  isFullScreen: boolean = false
   srcList: string[] = [
     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -41,6 +42,10 @@ class RecommendVideo {
 
   setPaused(paused: boolean) {
     this.paused = paused
+  }
+
+  setFullScreen(isFullScreen: boolean) {
+    this.isFullScreen = isFullScreen
   }
 
   setVolume(volume: number) {

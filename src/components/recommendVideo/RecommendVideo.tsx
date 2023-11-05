@@ -2,7 +2,7 @@ import { useEffect, useRef, ChangeEventHandler, MouseEventHandler } from "react"
 import { toJS } from "mobx"
 import { observer } from "mobx-react"
 import { FaPause, FaPlay } from "react-icons/fa6"
-import { BsVolumeDown, BsVolumeMute } from "react-icons/bs"
+import { BsFullscreen, BsVolumeDown, BsVolumeMute } from "react-icons/bs"
 import { formateSeconds } from "../../utils/common"
 import RecommendVideoStore from "../../store/RecommendVideo"
 import "./style/RecommendVideo.scss"
@@ -53,6 +53,10 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
 
   const handlePlayVideo = async () => {
     videoRef.current?.play()
+  }
+
+  const handleFullScreenClick = () => {
+    RecommendVideoStore.setFullScreen(!RecommendVideoStore.isFullScreen)
   }
 
   const handleLoadedMetadata = () => {
@@ -206,6 +210,9 @@ function RecommendVideo({ index, isCurrent, src }: Props) {
                   />
                 </div>
                 {RecommendVideoStore.volume > 0 ? <BsVolumeDown /> : <BsVolumeMute />}
+              </div>
+              <div className='flex-hor-ver-center' onClick={handleFullScreenClick}>
+                <BsFullscreen />
               </div>
             </div>
           </div>
