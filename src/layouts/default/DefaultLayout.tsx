@@ -15,12 +15,12 @@ import "./style/DefaultLayout.scss"
 const buttonList: Menu.MenuItem[] = [
   {
     text: "推荐",
-    path: "/recommend",
+    path: "/",
     Icon: FaFaceGrinStars
   },
   {
     text: "首页",
-    path: "/",
+    path: "/home",
     Icon: FaHouseChimney
   },
   {

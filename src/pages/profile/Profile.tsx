@@ -29,6 +29,10 @@ function Profile() {
   }
 
   useEffect(() => {
+    if (!userId) console.log(123)
+  }, [])
+
+  useEffect(() => {
     if (userId === UserStore.userId) console.log("myself")
     else console.log("other guys")
 
