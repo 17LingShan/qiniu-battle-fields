@@ -1,3 +1,4 @@
+import { observer } from "mobx-react"
 import { useNavigate } from "react-router-dom"
 import UserStore from "../../store/User"
 import AuthDialogStore from "../../store/AuthDialog"
@@ -5,13 +6,12 @@ import HeaderDrawerStore from "../../store/HeaderDrawer"
 import BaiZi from "../../assets/baizi.jpg"
 import puluona from "../../assets/puluona.webp"
 import "./style/GlobalAvatar.scss"
-import { observer } from "mobx-react"
 
 function GlobalAvatar() {
   const navigate = useNavigate()
 
   const handleClickAvatar = () => {
-    navigate(`/profile/${UserStore.id}`)
+    navigate(`/profile/${UserStore.userId}`)
   }
 
   return (

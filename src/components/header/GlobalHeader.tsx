@@ -1,8 +1,9 @@
 import TooBar from "./ToolBar"
 import HeaderDrawer from "./HeaderDrawer"
 import "./style/GlobalHeader.scss"
+import { observer } from "mobx-react"
 
-export default function GlobalHeader() {
+function GlobalHeader() {
   return (
     <>
       <div className='header-fixed-wrap'>
@@ -16,3 +17,5 @@ export default function GlobalHeader() {
     </>
   )
 }
+
+export default observer(GlobalHeader)

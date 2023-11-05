@@ -1,17 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { observer } from "mobx-react"
+import { useParams } from "react-router-dom"
 import UserStore from "../../store/User"
 import BaiZi from "../../assets/baizi.jpg"
 import puluona from "../../assets/puluona.webp"
-import "./style/Profile.scss"
-import { useParams } from "react-router-dom"
 import { getUserInfo } from "../../apis/user"
+import "./style/Profile.scss"
 
 function Profile() {
   const arr = useMemo(() => Array.from({ length: 11 }, (_, index) => index + 1), [])
 
-  const [userInfo, setUserInfo] = useState<APIResponse.GetUserInfoUser>()
-  const [userFollow, setUserFollow] = useState<APIResponse.UserItem>()
+  const [userInfo, setUserInfo] = useState<APIResponse.GetUserInfo>()
 
   const { userId } = useParams()
 
@@ -19,9 +18,9 @@ function Profile() {
     if (!userId) return
 
     try {
-      const { data }: { data: APIResponse.GetUserInfo } = await getUserInfo({ id: userId })
-      setUserInfo({ ...data.user })
-      setUserFollow({ ...data.userItem })
+      const { data }: { data: APIResponse.GetUserInfoResponse } = await getUserInfo({ userId: userId })
+
+      setUserInfo({ ...data.userItem })
 
       console.log(data)
     } catch (err) {
@@ -30,7 +29,7 @@ function Profile() {
   }
 
   useEffect(() => {
-    if (userId === UserStore.id) console.log("myself")
+    if (userId === UserStore.userId) console.log("myself")
     else console.log("other guys")
 
     handleGetUserInfo()
@@ -51,20 +50,20 @@ function Profile() {
                   <div className='social-info'>
                     <div className='social-item'>
                       <span className='social-item-name'>关注</span>
-                      <span className='social-item-count'>{userFollow?.followingNum || 0}</span>
+                      <span className='social-item-count'>{userInfo?.followedNum || 0}</span>
                     </div>
                     <div className='social-item'>
                       <span className='social-item-name'>粉丝</span>
-                      <span className='social-item-count'>{userFollow?.followedNum || 0}</span>
+                      <span className='social-item-count'>{userInfo?.followingNum || 0}</span>
                     </div>
                     <div className='social-item'>
                       <span className='social-item-name'>点赞</span>
-                      <span className='social-item-count'>{userFollow?.followingNum || 0}</span>
+                      <span className='social-item-count'>{userInfo?.followingNum || 0}</span>
                     </div>
                   </div>
-                  <div className='self-id'>
+                  <div className='self-userId'>
                     <span>我的id:</span>
-                    <span>{userInfo?.id}</span>
+                    <span>{userInfo?.user.userId}</span>
                   </div>
                 </React.Fragment>
               )}

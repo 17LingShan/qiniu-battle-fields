@@ -46,7 +46,7 @@ function HeaderDrawer() {
       >
         <div className='dialog-container'>
           <div className='dialog-profile-control'>
-            <div className='dialog-nickname' onClick={() => navigate(`/profile/${UserStore.id}`)}>
+            <div className='dialog-nickname' onClick={() => navigate(`/profile/${UserStore.userId}`)}>
               <div>{UserStore.nickname || "未登录"}</div>
               <FaAngleRight />
             </div>

@@ -34,21 +34,21 @@ export function fetchCaptcha(params: APIParams.FetchCaptchaParams) {
 
 export function getUserInfo(params: APIParams.GetUserInfoParams) {
   return request({
-    url: api.user + params.id,
+    url: api.user + params.userId,
     method: "get"
   })
 }
 
 export function getProfile(params: APIParams.GetProfileParams) {
   return request({
-    url: api.profile + params.id,
+    url: api.profile + params.userId,
     method: "get"
   })
 }
 
 export function putProfile(params: APIParams.PutProfileParams) {
   return request({
-    url: api.profile + params.id,
+    url: api.profile + params.userId,
     method: "put",
     data: params.profile
   })

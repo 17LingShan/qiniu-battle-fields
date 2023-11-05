@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
 import { observer } from "mobx-react"
 import { Outlet } from "react-router-dom"
+import { AiOutlineFileUnknown } from "react-icons/ai"
 import { FaFaceGrinStars, FaHouseChimney, FaUserCheck, FaUserGroup } from "react-icons/fa6"
 import Logo from "../../components/menu/Logo"
 import LeftMenu from "../../components/menu/LeftMenu"
 import GlobalHeader from "../../components/header/GlobalHeader"
 import AuthDialog from "../../components/globalDialog/AuthDialog"
-import { getTags } from "../../apis/common"
-import "./DefaultLayout.scss"
-import { menuItemIconMap } from "../../utils/common"
-import { AiOutlineFileUnknown } from "react-icons/ai"
 import UserStore from "../../store/User"
+import { getTags } from "../../apis/common"
+import { menuItemIconMap } from "../../utils/common"
+import "./DefaultLayout.scss"
 
 const buttonList: Menu.MenuItem[] = [
   {
@@ -25,7 +25,7 @@ const buttonList: Menu.MenuItem[] = [
   },
   {
     text: "我的",
-    path: `/profile/${UserStore.id}`,
+    path: `/profile/${UserStore.userId}`,
     Icon: FaHouseChimney
   },
   {
@@ -50,7 +50,7 @@ function DefaultLayout() {
       setChannelList(
         (data.tags as APIResponse.GetTagsResponse).map((item) => ({
           text: item.name,
-          path: `channel/${item.id}`,
+          path: `channel/${item.userId}`,
           Icon: menuItemIconMap[item.name] || AiOutlineFileUnknown
         }))
       )

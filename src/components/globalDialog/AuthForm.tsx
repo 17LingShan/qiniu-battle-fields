@@ -34,10 +34,10 @@ function AuthForm() {
       const res = await login({ email: email, password: password })
       console.log(res.data)
 
-      console.log(res.data.user.id)
+      console.log(res.data.user.userId)
 
       UserStore.loginSuccess({
-        id: res.data.user.id,
+        userId: res.data.user.userId,
         token: res.data.token,
         profile: res.data.profile,
         email: res.data.user.email,

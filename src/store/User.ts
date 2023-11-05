@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx"
 
 class User {
-  id: string = localStorage.getItem("id") || "0"
+  userId: string = localStorage.getItem("userId") || "0"
   email: string = localStorage.getItem("email") || ""
   token: string = localStorage.getItem("token") || ""
   nickname = localStorage.getItem("nickname") || "未登录"
@@ -21,29 +21,23 @@ class User {
     if (!this.token) this.logout()
   }
 
-  successLogin({ nickname, email }: { nickname: string; email: string }) {
-    this.email = email
-    this.nickname = nickname
-    localStorage.setItem("email", this.email)
-    localStorage.setItem("nickname", this.nickname)
-  }
-
-  loginSuccess(params: Pick<APIParams.User, "email" | "id" | "nickname" | "createAt" | "profile" | "token">) {
+  loginSuccess(params: Pick<APIParams.User, "email" | "userId" | "nickname" | "createAt" | "profile" | "token">) {
     this.email = params.email
-    this.id = params.id
-    this.nickname = params.nickname
+    this.token = params.token
+    this.userId = params.userId
     this.profile = params.profile
+    this.nickname = params.nickname
 
-    localStorage.setItem("id", params.id)
     localStorage.setItem("token", params.token)
+    localStorage.setItem("userId", params.userId)
     localStorage.setItem("nickname", params.nickname)
   }
 
   logout() {
     this.nickname = ""
     this.token = ""
-    localStorage.removeItem("token")
-    localStorage.removeItem("nickname")
+    this.userId = ""
+    localStorage.clear()
   }
 }
 
