@@ -11,7 +11,7 @@ function GlobalAvatar() {
   const navigate = useNavigate()
 
   const handleClickAvatar = () => {
-    navigate("/profile")
+    navigate(`/profile/${UserStore.id}`)
   }
 
   return (

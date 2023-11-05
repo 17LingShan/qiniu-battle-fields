@@ -34,6 +34,8 @@ function AuthForm() {
       const res = await login({ email: email, password: password })
       console.log(res.data)
 
+      console.log(res.data.user.id)
+
       UserStore.loginSuccess({
         id: res.data.user.id,
         token: res.data.token,

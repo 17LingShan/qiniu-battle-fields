@@ -5,7 +5,7 @@ import Recommend from "../pages/recommend/Recommend"
 import Profile from "../pages/profile/Profile"
 import Friend from "../pages/friend/Friend"
 import Follow from "../pages/follow/Follow"
-import ChannelLayout from "../layouts/channel/ChannelLayout"
+import Channel from "../pages/channel/Channel"
 
 export const routes: RouteObject[] = [
   {
@@ -28,11 +28,12 @@ export const routes: RouteObject[] = [
         element: <Follow />
       },
       {
-        element: <ChannelLayout />
+        path: "profile/:userId",
+        element: <Profile />
       },
       {
-        path: "profile",
-        element: <Profile />
+        path: "channel/:channelId",
+        element: <Channel />
       }
     ]
   }

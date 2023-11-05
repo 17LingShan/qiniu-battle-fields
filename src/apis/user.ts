@@ -4,7 +4,8 @@ const api = {
   register: "/v1/auth/register",
   login: "/v1/auth/login",
   captcha: "/v1/auth/captcha",
-  profile: "/v1/profile/"
+  profile: "/v1/profile/",
+  user: "/v1/user/"
 }
 
 export function register(params: APIParams.RegisterParams) {
@@ -28,6 +29,13 @@ export function fetchCaptcha(params: APIParams.FetchCaptchaParams) {
     url: api.captcha,
     method: "post",
     data: params
+  })
+}
+
+export function getUserInfo(params: APIParams.GetUserInfoParams) {
+  return request({
+    url: api.user + params.id,
+    method: "get"
   })
 }
 

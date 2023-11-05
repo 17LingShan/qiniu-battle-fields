@@ -3,7 +3,7 @@ import { observer } from "mobx-react"
 import RecommendVideoStore from "../../store/RecommendVideo"
 import RecommendVideo from "../../components/recommendVideo/RecommendVideo"
 import { debounce } from "../../utils/common"
-import "./Recommend.scss"
+import "./style/Recommend.scss"
 
 function Recommend() {
   const prevRef = useRef<HTMLDivElement>(null)

@@ -4,5 +4,18 @@
   .menu-container {
     display: flex;
     flex-direction: column;
+
+    .menu-item-division-wrap {
+      margin: 1rem 0;
+      padding: 0 1rem;
+      width: 100%;
+      height: 1px;
+
+      .menu-item-division-bar {
+        height: 100%;
+        width: 100%;
+        background-color: #807e7e;
+      }
+    }
   }
 }

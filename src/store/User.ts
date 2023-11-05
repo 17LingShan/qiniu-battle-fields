@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx"
 
 class User {
-  id: string = "0"
+  id: string = localStorage.getItem("id") || "0"
   email: string = localStorage.getItem("email") || ""
   token: string = localStorage.getItem("token") || ""
   nickname = localStorage.getItem("nickname") || "未登录"
@@ -28,13 +28,13 @@ class User {
     localStorage.setItem("nickname", this.nickname)
   }
 
-  loginSuccess(params: Pick<APIParams.User, "email" | "id" | "nickname" | "token" | "createAt" | "profile">) {
+  loginSuccess(params: Pick<APIParams.User, "email" | "id" | "nickname" | "createAt" | "profile" | "token">) {
     this.email = params.email
-    this.token = params.token
     this.id = params.id
     this.nickname = params.nickname
     this.profile = params.profile
 
+    localStorage.setItem("id", params.id)
     localStorage.setItem("token", params.token)
     localStorage.setItem("nickname", params.nickname)
   }

@@ -5,3 +5,7 @@ declare namespace Storage {
     [key: string | symbol]: PropertyKey
   }
 }
+
+interface MenuItemReflectIcon {
+  [key: string]: IconType
+}

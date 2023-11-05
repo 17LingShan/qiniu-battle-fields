@@ -24,7 +24,31 @@ namespace APIParams {
 
   type FetchCaptchaParams = Pick<User, "email">
 
+  type GetUserInfoParams = NonNullable<Pick<User, "id">>
+
   type GetProfileParams = Pick<User, "id">
 
   type PutProfileParams = Pick<User, "id" | "profile">
+}
+
+namespace APIResponse {
+  interface GetTagItem {
+    id: number
+    name: string
+    description: string
+  }
+  type GetTagsResponse = GetTagItem[]
+
+  interface UserItem {
+    followedNum: string | number
+    followingNum: string | number
+    isFollowed: boolean
+  }
+
+  type GetUserInfoUser = Pick<APIParams.User, "id" | "email" | "nickname" | "createAt" | "profile">
+
+  type GetUserInfo = {
+    userItem: UserItem
+    user: Pick<APIParams.User, "id" | "email" | "nickname" | "createAt" | "profile">
+  }
 }

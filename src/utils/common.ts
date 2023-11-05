@@ -1,3 +1,9 @@
+import { SiFunimation } from "react-icons/si"
+import { IoFastFood } from "react-icons/io5"
+import { MdSportsScore } from "react-icons/md"
+import { BiSolidGame, BiSolidMusic } from "react-icons/bi"
+import { AiFillBook, AiTwotoneShopping } from "react-icons/ai"
+
 export function formateSeconds(seconds: number): string {
   if (seconds === undefined || seconds === null) return "00:00"
   return `${Math.floor(seconds / 60)
@@ -46,4 +52,14 @@ export function canCancelTimeout(callback: Function, delay: number) {
     this.cancelTimeout = cancelTimeout
     callback.call(this, ...arguments)
   }
+}
+
+export const menuItemIconMap: MenuItemReflectIcon = {
+  美食: IoFastFood,
+  知识: AiFillBook,
+  游戏: BiSolidGame,
+  娱乐: SiFunimation,
+  音乐: BiSolidMusic,
+  体育: MdSportsScore,
+  时尚: AiTwotoneShopping
 }
