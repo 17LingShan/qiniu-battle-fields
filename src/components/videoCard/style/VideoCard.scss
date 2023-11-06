@@ -2,25 +2,42 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  border-radius: 0.5rem;
+  overflow: hidden;
 
-  .video-container {
+  .video-instance-container {
     position: relative;
-    height: 15rem;
-    background-color: #941919;
+    height: 18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .video-instance {
       height: 100%;
-      width: 100%;
     }
   }
 
   .video-info-container {
-    height: calc($videoCardHeight - 15rem);
-    background-color: burlywood;
+    height: calc($videoCardHeight - 18rem);
     padding: 0.5rem 0;
+    background-color: #252632;
 
     .video-info-title {
       padding: 0 1rem;
+      max-height: 1rem;
+      line-height: 1rem;
+    }
+
+    .video-info-description {
+      display: -webkit-box;
+      margin-top: 0.5rem;
+      padding: 0 1rem;
+      line-height: 1.5rem;
+      font-size: 0.8rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
   }
 }

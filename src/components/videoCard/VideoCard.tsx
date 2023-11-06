@@ -23,7 +23,7 @@ function VideoCard({ videoInfo }: VideoCardProps) {
   return (
     <>
       <div className='video-card-container'>
-        <div className='video-container'>
+        <div className='video-instance-container'>
           <video
             className='video-instance'
             ref={cardVideoRef}
@@ -34,7 +34,10 @@ function VideoCard({ videoInfo }: VideoCardProps) {
         </div>
         <div className='video-info-container'>
           <div className='video-info-title'>{videoInfo.post.title}</div>
-          <div className='video-info-description'></div>
+          <div className='video-info-description'>
+            {videoInfo.post.description} 简介简洁简介简洁简介简洁简介简洁简介简洁 简介简洁 简介简洁 简介简洁 简介简洁
+            简介简洁简介简洁 简介简洁简介简洁简介简洁 简介简洁简介简洁简介简洁 简介简洁简介简洁简介简洁 简介简洁
+          </div>
         </div>
       </div>
     </>

@@ -169,6 +169,8 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
           backdropFilter: "blur(50px)"
         }}
       >
+        <div className='video-bg' style={{ backgroundImage: `url('${videoInfo.post.video.coverLink}')` }}></div>
+
         <video
           className='video-instance'
           ref={videoRef}

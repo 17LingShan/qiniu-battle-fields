@@ -21,7 +21,7 @@ $videoControlsFontColor: #e5e5e5;
 $videoProcessInlineBackColor: #ffffff;
 $videoProcessOutlineBackColor: #373736;
 $bottomControlHeight: 3rem;
-$videoCardHeight: 20rem;
+$videoCardHeight: 25rem;
 
 .flex-hor-ver-center {
   display: flex;
@@ -34,4 +34,15 @@ $videoCardHeight: 20rem;
   height: 0;
   display: block;
   clear: both;
+}
+
+.video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(50px);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
