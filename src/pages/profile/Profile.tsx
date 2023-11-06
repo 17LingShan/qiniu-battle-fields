@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { observer } from "mobx-react"
 import { useParams } from "react-router-dom"
 import UserStore from "../../store/User"
@@ -8,8 +8,6 @@ import { getUserInfo } from "../../apis/user"
 import "./style/Profile.scss"
 
 function Profile() {
-  const arr = useMemo(() => Array.from({ length: 11 }, (_, index) => index + 1), [])
-
   const [userInfo, setUserInfo] = useState<APIResponse.GetUserInfo>()
 
   const { userId } = useParams()
@@ -74,15 +72,7 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className='preview-wrap'>
-          <div className='preview-container'>
-            <ul className='preview-ul clearfix'>
-              {arr.map((item) => (
-                <li key={item}>{/* <VideoPreviewItem /> */}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        {/* <VideoCardList></VideoCardList> */}
       </div>
     </>
   )

@@ -3,7 +3,7 @@ import { observer } from "mobx-react"
 import AuthDialogStore from "../../store/AuthDialog"
 import "./style/SmoothNav.scss"
 
-function SmoothNav({ navList }: GlobalDialog.SmoothNavProps) {
+function SmoothNav({ navList }: AuthDialog.SmoothNavProps) {
   const smoothBarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-declare namespace GlobalDialog {
+declare namespace AuthDialog {
   interface NavItem {
     text: string
   }

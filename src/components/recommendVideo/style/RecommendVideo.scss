@@ -1,5 +1,3 @@
-$bottomControlHeight: 3rem;
-
 .figure-video {
   position: relative;
   height: 100%;
@@ -8,7 +6,6 @@ $bottomControlHeight: 3rem;
   display: flex;
   justify-content: center;
   overflow: hidden;
-  background-color: gray;
 
   &:hover {
     .video-controls-wrap {
@@ -17,7 +14,6 @@ $bottomControlHeight: 3rem;
   }
 
   .video-instance {
-    width: 100%;
     height: 100%;
   }
 

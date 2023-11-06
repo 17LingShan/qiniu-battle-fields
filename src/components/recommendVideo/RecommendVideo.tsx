@@ -133,7 +133,6 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
       videoRef.current!.muted = RecommendVideoStore.muted
       videoRef.current!.volume = RecommendVideoStore.volume
       console.log(videoInfo.post.video.coverLink)
-      figureRef.current!.style.backgroundImage = `url('${videoInfo.post.video.coverLink}')`
 
       handlePlayVideo()
     } else {
@@ -159,10 +158,19 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
 
   return (
     <>
-      <figure className='figure-video' ref={figureRef}>
+      <figure
+        className='figure-video'
+        ref={figureRef}
+        style={{
+          backgroundImage: `url('${videoInfo.post.video.coverLink}')`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          backdropFilter: "blur(50px)"
+        }}
+      >
         <video
           className='video-instance'
-          id='video'
           ref={videoRef}
           onClick={handleClickVideo}
           onEnded={handleEndedVideo}

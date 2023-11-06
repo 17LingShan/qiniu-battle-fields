@@ -8,7 +8,7 @@ import { getTags } from "../../apis/videos"
 import Logo from "../../components/menu/Logo"
 import LeftMenu from "../../components/menu/LeftMenu"
 import GlobalHeader from "../../components/header/GlobalHeader"
-import AuthDialog from "../../components/globalDialog/AuthDialog"
+import AuthDialog from "../../components/authDialog/AuthDialog"
 import { menuItemIconMap } from "../../utils/common"
 import "./style/DefaultLayout.scss"
 

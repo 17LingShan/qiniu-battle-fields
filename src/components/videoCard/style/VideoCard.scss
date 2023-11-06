@@ -1,0 +1,26 @@
+.video-card-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .video-container {
+    position: relative;
+    height: 15rem;
+    background-color: #941919;
+
+    .video-instance {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .video-info-container {
+    height: calc($videoCardHeight - 15rem);
+    background-color: burlywood;
+    padding: 0.5rem 0;
+
+    .video-info-title {
+      padding: 0 1rem;
+    }
+  }
+}
