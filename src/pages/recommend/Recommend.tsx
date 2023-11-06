@@ -41,14 +41,12 @@ function Recommend() {
   }
 
   const handleScrollToCurrentIndex = () => {
-    console.log("current video")
     currentRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
   const handleVideoQueueToEnd = async () => {
     if (RecommendVideoStore.currentIndex + 2 < RecommendVideoStore.videoInfos.length) return
 
-    console.log("to the end")
     try {
       const { data } = (await getRecommendVideos({
         pageSize: RecommendVideoStore.currentPageSize,
@@ -96,7 +94,6 @@ function Recommend() {
 
   // 因为如果使用esc退出全屏时, 监听不到keydown:Escape, 所以这俩写多一个函数
   const handleFullScreenChange = (event: Event) => {
-    console.log("full changed")
     RecommendVideoStore.setFullScreen(document.fullscreenElement ? true : false)
     currentRef.current?.scrollIntoView({ behavior: "instant" }) // 防止进入或推出全屏时会卡一半
   }

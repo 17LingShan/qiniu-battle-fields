@@ -43,9 +43,7 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
   }
 
   const handleClickVideo = () => {
-    console.log("click video")
     handleSpaceKeydown()
-    console.log(encodeURI(videoInfo.post.video.srcLink))
   }
 
   const handleEndedVideo = () => {
@@ -57,7 +55,6 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
   }
 
   const handleFullScreenClick = () => {
-    console.log("click full screen")
     RecommendVideoStore.setFullScreen(!RecommendVideoStore.isFullScreen)
   }
 
@@ -132,7 +129,6 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
     if (isCurrent) {
       videoRef.current!.muted = RecommendVideoStore.muted
       videoRef.current!.volume = RecommendVideoStore.volume
-      console.log(videoInfo.post.video.coverLink)
 
       handlePlayVideo()
     } else {
@@ -150,7 +146,6 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
     if (!isCurrent) return
     document.addEventListener("keydown", handleControlKeydown)
     return () => {
-      console.log("remove")
       videoRef.current?.pause()
       document.removeEventListener("keydown", handleControlKeydown)
     }

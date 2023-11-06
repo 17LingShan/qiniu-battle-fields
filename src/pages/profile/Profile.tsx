@@ -19,21 +19,12 @@ function Profile() {
       const { data }: { data: APIResponse.GetUserInfoResponse } = await getUserInfo({ userId: userId })
 
       setUserInfo({ ...data.userItem })
-
-      console.log(data)
     } catch (err) {
       console.log("get user info err", err)
     }
   }
 
   useEffect(() => {
-    if (!userId) console.log(123)
-  }, [])
-
-  useEffect(() => {
-    if (userId === UserStore.userId) console.log("myself")
-    else console.log("other guys")
-
     handleGetUserInfo()
   }, [userId])
 

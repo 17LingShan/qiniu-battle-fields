@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import MenuButton from "./MenuButton"
 import "./style/LeftMenu.scss"
-import { useEffect } from "react"
 
 type MenuProps = {
   items: Menu.MenuItem[]
@@ -15,10 +14,6 @@ export default function LeftMenu({ items, channelItems }: MenuProps) {
   const handleClick = ({ path, text }: Pick<Menu.MenuItem, "path" | "text">) => {
     navigate(path!)
   }
-
-  useEffect(() => {
-    console.log(location.pathname)
-  }, [location])
 
   return (
     <>

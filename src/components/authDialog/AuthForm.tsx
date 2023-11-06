@@ -32,9 +32,6 @@ function AuthForm() {
   const handleLogin = async () => {
     try {
       const res = await login({ email: email, password: password })
-      console.log(res.data)
-
-      console.log(res.data.user.userId)
 
       UserStore.loginSuccess({
         userId: res.data.user.userId,
@@ -87,9 +84,8 @@ function AuthForm() {
 
   const handleFetchCaptcha = async () => {
     try {
-      const res = await fetchCaptcha({ email: email })
+      await fetchCaptcha({ email: email })
       setCaptchaDisable(true)
-      console.log(res.data)
       messageApi.open({
         type: "success",
         content: "发送成功, 请检查邮箱!"
