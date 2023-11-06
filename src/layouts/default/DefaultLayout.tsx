@@ -50,7 +50,7 @@ function DefaultLayout() {
       setChannelList(
         (data.tags as APIResponse.GetTagsResponse).map((item) => ({
           text: item.name,
-          path: `channel/${item.tagId}`,
+          path: `/channel/${item.tagId}`,
           Icon: menuItemIconMap[item.name] || AiOutlineFileUnknown
         }))
       )

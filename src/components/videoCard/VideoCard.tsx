@@ -1,7 +1,7 @@
-import { observer } from "mobx-react"
-import "./style/VideoCard.scss"
 import { useRef } from "react"
+import { observer } from "mobx-react"
 import RecommendVideoStore from "../../store/RecommendVideo"
+import "./style/VideoCard.scss"
 
 interface VideoCardProps {
   videoInfo: APIResponse.PostItem

@@ -17,8 +17,8 @@ export default function LeftMenu({ items, channelItems }: MenuProps) {
   }
 
   useEffect(() => {
-    console.log(channelItems)
-  }, [])
+    console.log(location.pathname)
+  }, [location])
 
   return (
     <>
