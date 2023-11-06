@@ -156,6 +156,7 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
       <figure
         className='figure-video'
         ref={figureRef}
+        onDoubleClick={handleFullScreenClick}
         style={{
           backgroundImage: `url('${videoInfo.post.video.coverLink}')`,
           backgroundRepeat: "no-repeat",
