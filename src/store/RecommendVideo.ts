@@ -81,7 +81,7 @@ class RecommendVideo {
   }
 
   setVideoInfos(videoInfos: APIResponse.PostItem[]) {
-    this.videoInfos = videoInfos
+    this.videoInfos.push(...videoInfos)
   }
 
   scaleChangeVideoIndex(type: "next" | "prev") {

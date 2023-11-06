@@ -45,10 +45,29 @@ function Recommend() {
     currentRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  const handleVideoQueueToEnd = async () => {
+    if (RecommendVideoStore.currentIndex + 2 < RecommendVideoStore.videoInfos.length) return
+
+    console.log("to the end")
+    try {
+      const { data } = (await getRecommendVideos({
+        pageSize: RecommendVideoStore.currentPageSize,
+        pagePos: RecommendVideoStore.currentPagePosition + 1
+      })) as { data: APIResponse.RecommendVideoResponse }
+      RecommendVideoStore.setVideoInfos(data.postItems)
+      RecommendVideoStore.setCurrentPos(RecommendVideoStore.currentPagePosition + 1)
+    } catch (err) {
+      messageApi.warning({
+        content: "网络错误, 请刷新页面重试!"
+      })
+    }
+  }
+
   const handleNextVideo = throttle(() => {
     if (RecommendVideoStore.currentIndex === RecommendVideoStore.videoInfos!.length - 1) return
     RecommendVideoStore.changeToNextPrevVideo("next")
     nextRef.current?.scrollIntoView({ behavior: "smooth" })
+    handleVideoQueueToEnd()
   }, 400)
 
   const handlePrevVideo = throttle(() => {
