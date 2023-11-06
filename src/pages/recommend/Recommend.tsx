@@ -40,10 +40,6 @@ function Recommend() {
     }
   }
 
-  const handleScrollToCurrentIndex = () => {
-    currentRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
-
   const handleVideoQueueToEnd = async () => {
     if (RecommendVideoStore.currentIndex + 2 < RecommendVideoStore.videoInfos.length) return
 
@@ -121,7 +117,6 @@ function Recommend() {
     document.addEventListener("wheel", handleWheel)
     document.addEventListener("keydown", handleKeydown)
     document.onfullscreenchange = handleFullScreenChange
-    handleScrollToCurrentIndex()
     handleFetchRecommendVideos()
     return () => {
       document.removeEventListener("wheel", handleWheel)

@@ -14,6 +14,7 @@ declare namespace APIParams {
   interface RecommendVideoParams {
     pageSize?: number
     pagePos: number
+    tagId?: number
   }
 }
 

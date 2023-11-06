@@ -24,6 +24,7 @@ function VideoCard({ videoInfo }: VideoCardProps) {
     <>
       <div className='video-card-container'>
         <div className='video-instance-container'>
+          <div className='video-bg' style={{ backgroundImage: `url('${videoInfo.post.video.coverLink}')` }}></div>
           <video
             className='video-instance'
             ref={cardVideoRef}

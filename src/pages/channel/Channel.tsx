@@ -12,10 +12,12 @@ function Channel() {
   const [videoList, setVideoList] = useState<APIResponse.PostItem[]>([])
 
   const handleFetchChannelVideo = async () => {
+    if (!channelId) return
     try {
       const { data } = (await getRecommendVideos({
         pageSize: RecommendVideoStore.currentPageSize,
-        pagePos: RecommendVideoStore.currentPagePosition
+        pagePos: RecommendVideoStore.currentPagePosition,
+        tagId: +channelId
       })) as { data: APIResponse.RecommendVideoResponse }
 
       setVideoList([...data.postItems])
