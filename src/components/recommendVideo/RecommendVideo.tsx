@@ -179,9 +179,6 @@ function RecommendVideo({ index, isCurrent, videoInfo }: Props) {
         >
           <source src={videoInfo.post.video.srcLink} />
         </video>
-        <span style={{ position: "absolute", left: 0, top: 0, background: "white", color: "black", zIndex: "9" }}>
-          {index}
-        </span>
         <div className='video-controls-wrap' ref={controlsRef}>
           <div className='video-controls-container'>
             <div className='video-process-outline'>

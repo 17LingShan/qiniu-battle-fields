@@ -14,3 +14,7 @@ yarn
 yarn dev
 
 ```
+
+## 文档 && demo 视频
+
+详见根目录下`./docs`文件夹.
