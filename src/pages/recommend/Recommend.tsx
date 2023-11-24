@@ -15,18 +15,17 @@ function Recommend() {
   const [messageApi, contextHolder] = message.useMessage({ maxCount: 1 })
 
   const handleFetchRecommendVideos = async () => {
-    try {
-      const { data } = (await getRecommendVideos({
-        pageSize: RecommendVideoStore.currentPageSize,
-        pagePos: RecommendVideoStore.currentPagePosition
-      })) as { data: APIResponse.RecommendVideoResponse }
-
-      RecommendVideoStore.setVideoInfos(data.postItems)
-    } catch (err) {
-      messageApi.warning({
-        content: "网络错误, 请刷新页面重试!"
-      })
-    }
+    // try {
+    //   const { data } = (await getRecommendVideos({
+    //     pageSize: RecommendVideoStore.currentPageSize,
+    //     pagePos: RecommendVideoStore.currentPagePosition
+    //   })) as { data: APIResponse.RecommendVideoResponse }
+    //   RecommendVideoStore.setVideoInfos(data.postItems)
+    // } catch (err) {
+    //   messageApi.warning({
+    //     content: "网络错误, 请刷新页面重试!"
+    //   })
+    // }
   }
 
   const handleKeydown = (event: KeyboardEvent) => {

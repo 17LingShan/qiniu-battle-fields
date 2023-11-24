@@ -1,5 +1,113 @@
 import { makeAutoObservable } from "mobx"
 
+const videoInfos: APIResponse.PostItem[] = [
+  {
+    post: {
+      postId: "1",
+      title: "1",
+      description: "1",
+      userId: "1",
+      tags: [{ tagId: 1, name: "123", description: "123" }],
+      video: {
+        srcLink: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        coverLink: ""
+      },
+      updatedAt: "1",
+      createdAt: "1"
+    },
+    isCollected: false,
+    isLinked: false,
+    isShared: false,
+    collectedNum: 0,
+    sharedNum: 0,
+    likedNum: 1
+  },
+  {
+    post: {
+      postId: "1",
+      title: "1",
+      description: "1",
+      userId: "1",
+      tags: [{ tagId: 1, name: "123", description: "123" }],
+      video: {
+        srcLink: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        coverLink: ""
+      },
+      updatedAt: "1",
+      createdAt: "1"
+    },
+    isCollected: false,
+    isLinked: false,
+    isShared: false,
+    collectedNum: 0,
+    sharedNum: 0,
+    likedNum: 1
+  },
+  {
+    post: {
+      postId: "1",
+      title: "1",
+      description: "1",
+      userId: "1",
+      tags: [{ tagId: 1, name: "123", description: "123" }],
+      video: {
+        srcLink: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+        coverLink: ""
+      },
+      updatedAt: "1",
+      createdAt: "1"
+    },
+    isCollected: false,
+    isLinked: false,
+    isShared: false,
+    collectedNum: 0,
+    sharedNum: 0,
+    likedNum: 1
+  },
+  {
+    post: {
+      postId: "1",
+      title: "1",
+      description: "1",
+      userId: "1",
+      tags: [{ tagId: 1, name: "123", description: "123" }],
+      video: {
+        srcLink: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+        coverLink: ""
+      },
+      updatedAt: "1",
+      createdAt: "1"
+    },
+    isCollected: false,
+    isLinked: false,
+    isShared: false,
+    collectedNum: 0,
+    sharedNum: 0,
+    likedNum: 1
+  },
+  {
+    post: {
+      postId: "1",
+      title: "1",
+      description: "1",
+      userId: "1",
+      tags: [{ tagId: 1, name: "123", description: "123" }],
+      video: {
+        srcLink: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        coverLink: ""
+      },
+      updatedAt: "1",
+      createdAt: "1"
+    },
+    isCollected: false,
+    isLinked: false,
+    isShared: false,
+    collectedNum: 0,
+    sharedNum: 0,
+    likedNum: 1
+  }
+]
+
 class RecommendVideo {
   volume: number = 0
   muted: boolean = true
@@ -11,7 +119,7 @@ class RecommendVideo {
   volumeBarIsFocus: boolean = false
   volumeBarTimeoutId: number = 0
   isFullScreen: boolean = false
-  videoInfos: APIResponse.PostItem[] = []
+  videoInfos: APIResponse.PostItem[] = videoInfos
 
   // srcList: string[] = [
   //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
